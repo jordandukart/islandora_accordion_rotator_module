@@ -1,0 +1,184 @@
+.accordion {
+	position: relative;
+	overflow:hidden;
+}
+
+.accordion *{
+	margin:0;
+	padding:0;
+	font-style:normal;
+	text-decoration:none;
+}
+
+#border{
+	background-color:#242424;
+	
+	/*for firefox, chrome and safari*/
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
+	
+	padding:10px;
+	
+}
+
+.accordion .holder{
+	position: absolute;
+	top: 0; left: 0;
+}
+
+.accordion .holder .block .shadow{
+	position: absolute;
+	background-image:url(../images/ui/shadow.png);
+	background-repeat:no-repeat;
+	background-position:right;
+	
+	width:200px;
+	height:315px;
+}
+
+.accordion .holder .block{
+	position:absolute;
+	float:left;
+	
+	width:50px;
+	height:315px;
+	
+	background-color:#FFFFFF;
+	
+	overflow:hidden;
+}
+
+.loading{
+	width:32px;
+	height:32px;
+	margin:0 auto;
+	float:left;
+}
+
+.accordion .holder .content{
+	position:absolute;
+}
+
+.accordion .holder .content_holder{
+	position:absolute;
+}
+
+.accordion .holder .image{
+	position:absolute;
+}
+.accordion .holder .cover{
+	position:absolute;
+	background-color:#000000;
+}
+
+.accordion p{
+	font-family: Candara;
+	font-size:18px;
+	font-weight:bold;
+	color: #2c2c2c;
+	text-align:right;
+}
+.accordion p br{
+	line-height:0px;
+}
+.accordion .box{
+	background:transparent;
+       filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000,endColorstr=#99000000);
+       zoom: 1;
+	  
+	background: rgba(0, 0, 0, 0.5);
+	display:block;
+	
+	width:inherit;
+}
+
+
+.accordion .box p{
+	font-family: Arial;
+	
+	
+	color: #ffffff;
+	text-align:left;
+	
+	padding-left:20px;
+	padding-right:20px;
+	padding-bottom:10px;
+}
+
+.accordion .box p.title{
+	font-family: Arial;
+	font-size:18px;
+	font-weight:bold;
+	
+	padding-top:10px;
+}
+
+.accordion .box p.text{
+	font-family: Arial;
+	font-size:14px;
+	font-weight:normal;
+}
+
+.accordion h1{
+	font-family: 'LucidaCalligraphyItalic';
+	font-size: 40px;
+	font-stretch:normal;
+	font-weight:normal;
+	color: #2c2c2c;
+	
+	border:none;
+}
+
+div.accordion_button{
+	height:71px;
+	width:71px;
+	
+	position: relative;
+	bottom: 250px;
+	
+	cursor:pointer;
+}
+
+div.accordion_button.previous{
+	float:left;
+	margin-left:-40px;
+	
+}
+div.accordion_button.next{
+	float:right;
+	margin-right:-40px;
+}
+
+div.accordion_button span.hover{
+	height:71px;
+	width:71px;
+	position: absolute;
+}
+
+div.accordion_button_simple{
+	margin-right:10px;
+	
+	display:inline;
+
+	font-family: Arial;
+	font-size:14px;
+	font-weight:normal;
+	
+	cursor:pointer;
+	
+	color:#000000;
+	
+	-webkit-transition: color 0.3s ease-out;
+	-moz-transition: color 0.3s ease-out;
+	transition: color 0.3s ease-out;
+}
+
+div.accordion_button_simple:hover{
+	font-family: Arial;
+	font-size:14px;
+	font-weight:normal;
+	
+	color:#33CC00;
+}

@@ -1,0 +1,3 @@
+name = Accordion Rotator
+description = A block module that displays datastream's in an interactive accordion.
+core = 7.x

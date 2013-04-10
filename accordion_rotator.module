@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * A block module that displays images from a list of PID's in an interactive accordion rotator. Based off Accordion Rotator v1.0.
+ */
+
+/**
+ * Implements hook_help.
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function accordion_rotator_help($path, $arg) {
+  switch ($path) {
+    case "admin/help#accordion_rotator":
+      return '<p>' . t("Displays images based of a user selected list of PID's for display on the frontpage accordion rotator") . '</p>';
+      break;
+  }
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function accordion_rotator_block_info() {
+  $blocks['accordion_rotator'] = array(
+    'info' => t('Accordion rotator'), //The name that will appear in the block list.
+    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+  );
+  return $blocks;
+}
+
+/**
+ * Accordion rotator function. 
+ * 
+ * @return 
+ *   Markup for slider
+ */
+function accordion_rotator_contents(){
+  //Markup needs to go below
+
+}

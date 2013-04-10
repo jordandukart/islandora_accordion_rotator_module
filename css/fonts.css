@@ -1,0 +1,11 @@
+@font1 {
+    font-family: 'LucidaCalligraphyItalic';
+    src: url('../fonts/lcallig-webfont.png');
+    src: url('../fonts/lcallig-webfontd41d.png?#iefix') format('embedded-opentype'),
+         url('../fonts/lcallig-webfont.woff') format('woff'),
+         url('../fonts/lcallig-webfont-2.png') format('truetype'),
+         url('../fonts/lcallig-webfont.svg#LucidaCalligraphyItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
