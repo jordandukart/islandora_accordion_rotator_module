@@ -34,6 +34,20 @@ function accordion_rotator_block_info() {
 }
 
 /**
+ * Implementation of hook_block_view().
+ */
+function accordion_rotator_block_view($delta='') {
+  $block = array();
+  switch ($delta) {
+    case 'accordion_rotator':
+      $block['subject'] = t('Block Name');
+      $block['content'] = accordion_rotator_contents();
+      break;
+  }
+  return $block;
+}
+
+/**
  * Accordion rotator function. 
  * 
  * @return 
@@ -41,5 +55,5 @@ function accordion_rotator_block_info() {
  */
 function accordion_rotator_contents(){
   //Markup needs to go below
-
+  return "<h1>Hello World</h1>";
 }
