@@ -53,7 +53,83 @@ function accordion_rotator_block_view($delta='') {
  * @return 
  *   Markup for slider
  */
+
+/* The CSS files need to be run */
+
 function accordion_rotator_contents(){
+  drupal_add_css(drupal_get_path('module', 'accordion_rotator') . '/css/main.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+  
+  drupal_add_css(drupal_get_path('module', 'accordion_rotator') . '/css/accordion.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE));
+
+/* These scripts need to be run first */
+
+  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/accordion.js');
+  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/pngFixer.js');
+  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/buttons.js');
+
   //Markup needs to go below
-  return "<h1>Hello World</h1>";
+  return '<div id="accordion3" class="accordion">
+                    <div class="holder">
+                    
+                       <div class="block">
+                              <div class="content_holder" src="images/example_4/Depositphotos_3853973_XXL.jpg">
+                              
+                                   <div class="image"></div>
+                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
+                                        <div class="box"><p class="title">Wire Madness</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p></div>
+                                   </div>
+                              </div>
+                         </div>
+                         
+                         <div class="block">
+                              <div class="content_holder" src="images/example_4/Depositphotos_3963097_XL.jpg">
+                                   <div class="image"></div>
+                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
+                                        <div class="box"><p class="title">Playing time</p><p class="text">Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibhs euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p></div>
+                                   </div>
+                              </div>
+                         </div>
+                         
+                        <div class="block">
+                              <div class="content_holder" src="images/example_4/Depositphotos_4017440_XL.jpg">
+                                   <div class="image"></div>
+                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
+                                        <div class="box"><p class="title">What the duck</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p></div>
+                                   </div>
+                              </div>
+                         </div>
+                         
+                         <div class="block">
+                              <div class="content_holder" src="images/example_4/Depositphotos_4297650_XL.jpg">
+                                   <div class="image"></div>
+                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
+                                        <div class="box"><p class="title">Playing time</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p></div>
+                                   </div>
+                              </div>
+                         </div>
+                         
+                         <div class="block">
+                              <div class="content_holder" src="images/example_4/Depositphotos_4297654_XL.jpg">
+                                   <div class="image"></div>
+                                  <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
+                                        <div class="box"><p class="title">Who would say that</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p></div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <div class="previous accordion_button" 
+                           normal="images/ui/previous_button.png" 
+                           over="images/ui/previous_button_over.png">
+                         </div>
+                <div class="next accordion_button" 
+                           normal="images/ui/next_button.png" 
+                           over="images/ui/next_button_over.png">
+                         </div>
+               </div>';
+
+/* This script needs to be run after the markup */
+
+  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/script.js');
+
 }
