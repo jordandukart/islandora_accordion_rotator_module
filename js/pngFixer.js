@@ -1,4 +1,3 @@
-﻿
 function fnFixPng($obj) {
 	if (navigator.platform == "Win32" && navigator.appName == "Microsoft Internet Explorer" && window.attachEvent) {
 		var bg	= $obj.css("background-image");

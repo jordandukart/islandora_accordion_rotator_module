@@ -1,25 +1,41 @@
 <?php
 /**
  * @file
- * A block module that displays images from a list of PID's in an interactive accordion rotator. Based off Accordion Rotator v1.0.
+ * A block module that displays images from a list of PID's
+ * in an interactive accordion rotator. Based off Accordion Rotator v1.0.
  */
 
 /**
- * Implements hook_help.
+ * Implements hook_help().
  *
  * Displays help and module information.
- *
- * @param path 
- *   Which path of the site we're using to display help
- * @param arg 
- *   Array that holds the current path as returned from arg() function
  */
 function accordion_rotator_help($path, $arg) {
   switch ($path) {
     case "admin/help#accordion_rotator":
       return '<p>' . t("Displays images based of a user selected list of PID's for display on the frontpage accordion rotator") . '</p>';
-      break;
+
+    break;
   }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function accordion_rotator_menu() {
+  $items = array();
+
+  $items['admin/config/content/accordion_rotator'] = array(
+    'title' => 'Accordion Rotator Configuration',
+    'description' => 'Configuration for The Accordion Rotator module',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('accordion_rotator_form'),
+    'access arguments' => array('access administration pages'),
+    'file' => 'includes/utils.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
 }
 
 /**
@@ -27,109 +43,121 @@ function accordion_rotator_help($path, $arg) {
  */
 function accordion_rotator_block_info() {
   $blocks['accordion_rotator'] = array(
-    'info' => t('Accordion rotator'), //The name that will appear in the block list.
-    'cache' => DRUPAL_CACHE_PER_ROLE, //Default
+    'info' => t('Accordion rotator'),
+    'cache' => DRUPAL_CACHE_PER_ROLE,
   );
   return $blocks;
 }
 
 /**
- * Implementation of hook_block_view().
+ * Implements hook_block_view().
  */
-function accordion_rotator_block_view($delta='') {
+function accordion_rotator_block_view($delta = '') {
   $block = array();
   switch ($delta) {
     case 'accordion_rotator':
       $block['subject'] = t('Block Name');
-      $block['content'] = accordion_rotator_contents();
+      $block['content'] = array(
+        '#markup' => theme('accordion_rotator_view'),
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'accordion_rotator') . '/css/main.css',
+            drupal_get_path('module', 'accordion_rotator') . '/css/fonts.css',
+            drupal_get_path('module', 'accordion_rotator') . '/css/accordion.css',
+          ),
+          'js' => array(
+            drupal_get_path('module', 'accordion_rotator') . '//jquery/jquery-1.6.2.min.js',
+            drupal_get_path('module', 'accordion_rotator') . '/js/script.js',
+            drupal_get_path('module', 'accordion_rotator') . '/js/accordion.js',
+            drupal_get_path('module', 'accordion_rotator') . '/js/pngFixer.js',
+            drupal_get_path('module', 'accordion_rotator') . '/js/buttons.js',
+          ),
+        ),
+      );
+      // This settings variable is used in the js/accordion.js file to get the
+      // path for the left/right buttons.
+      $my_settings = array(
+        'linkpath' => url(drupal_get_path('module', 'accordion_rotator')),
+      );
+      drupal_add_js(array('accordion_rotator' => $my_settings), 'setting');
       break;
   }
   return $block;
 }
 
 /**
- * Accordion rotator function. 
- * 
- * @return 
- *   Markup for slider
+ * Implements hook_theme().
  */
+function accordion_rotator_theme($existing, $type, $theme, $path) {
+  return array(
+    'accordion_rotator_view' => array(
+      'template' => 'theme/accordion-rotator',
+      'variables' => array(
+        'domain_url' => url(drupal_get_path('module', 'accordion_rotator')),
+        'block_data' => accordion_rotator_contents(),
+      ),
+    ),
+  );
+}
 
-/* The CSS files need to be run */
+/**
+ * Accordion rotator function.
+ * @return array
+ *   An array of array's with each inner
+ *   array containing data for a single image/description block
+ */
+function accordion_rotator_contents() {
+  module_load_include('inc', 'islandora', 'includes/IslandoraTuque');
+  module_load_include('inc', 'islandora', 'includes/datastream');
 
-function accordion_rotator_contents(){
-  drupal_add_css(drupal_get_path('module', 'accordion_rotator') . '/css/main.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE));
-  
-  drupal_add_css(drupal_get_path('module', 'accordion_rotator') . '/css/accordion.css', array('group' => CSS_DEFAULT, 'every_page' => TRUE));
-
-/* These scripts need to be run first */
-
-  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/accordion.js');
-  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/pngFixer.js');
-  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/buttons.js');
-
-  //Markup needs to go below
-  return '<div id="accordion3" class="accordion">
-                    <div class="holder">
-                    
-                       <div class="block">
-                              <div class="content_holder" src="images/example_4/Depositphotos_3853973_XXL.jpg">
-                              
-                                   <div class="image"></div>
-                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
-                                        <div class="box"><p class="title">Wire Madness</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p></div>
-                                   </div>
-                              </div>
-                         </div>
-                         
-                         <div class="block">
-                              <div class="content_holder" src="images/example_4/Depositphotos_3963097_XL.jpg">
-                                   <div class="image"></div>
-                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
-                                        <div class="box"><p class="title">Playing time</p><p class="text">Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibhs euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p></div>
-                                   </div>
-                              </div>
-                         </div>
-                         
-                        <div class="block">
-                              <div class="content_holder" src="images/example_4/Depositphotos_4017440_XL.jpg">
-                                   <div class="image"></div>
-                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
-                                        <div class="box"><p class="title">What the duck</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </p></div>
-                                   </div>
-                              </div>
-                         </div>
-                         
-                         <div class="block">
-                              <div class="content_holder" src="images/example_4/Depositphotos_4297650_XL.jpg">
-                                   <div class="image"></div>
-                                   <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
-                                        <div class="box"><p class="title">Playing time</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p></div>
-                                   </div>
-                              </div>
-                         </div>
-                         
-                         <div class="block">
-                              <div class="content_holder" src="images/example_4/Depositphotos_4297654_XL.jpg">
-                                   <div class="image"></div>
-                                  <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
-                                        <div class="box"><p class="title">Who would say that</p><p class="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p></div>
-                                   </div>
-                              </div>
-                         </div>
-                    </div>
-               </div>
-               <div class="previous accordion_button" 
-                           normal="images/ui/previous_button.png" 
-                           over="images/ui/previous_button_over.png">
-                         </div>
-                <div class="next accordion_button" 
-                           normal="images/ui/next_button.png" 
-                           over="images/ui/next_button_over.png">
-                         </div>
-               </div>';
-
-/* This script needs to be run after the markup */
-
-  drupal_add_js(drupal_get_path('module', 'accordion_rotator') .'/js/script.js');
-
+  global $base_url;
+  // Get the configuration pids from this modules configuration page.
+  $content = array();
+  $pids_array = explode(",", variable_get('accordion_pid_list'));
+  // Safety Check.
+  if (!empty($pids_array)) {
+    // Connect to our repository.
+    $my_islandora_tuque = new IslandoraTuque();
+    $repository = $my_islandora_tuque->repository;
+    foreach ($pids_array as $pid) {
+      // Load the associated fedora object by pid.
+      $fedora_object = islandora_object_load($pid);
+      // Check the objects existance, incase any faulty pids got past.
+      // the configuration page validation.
+      if ($fedora_object) {
+        // Grab the DC Datastream's contents, gets description.
+        $dc = $fedora_object['DC']->content;
+        $dc_object = DublinCore::importFromXMLString($dc);
+        $thumbnail_url = '';
+        // Try to set the best quality image as the url.
+        if (isset($fedora_object['TN'])) {
+          $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/TN/view");
+        }
+        // If MEDIUM_SIZE is available, use it instead.
+        if (isset($fedora_object['MEDIUM_SIZE'])) {
+          $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/MEDIUM_SIZE/view");
+        }
+        // Add this data as an entry to be displayed to the user as
+        // an accordion block.
+        array_push($content, array(
+          'title' => $fedora_object->label,
+          'description' => $dc_object->dc['dc:description'][0],
+          'img_url' => $thumbnail_url,
+          )
+        );
+      }
+    }
+  }
+  // Fill sample data if there is nothing configured yet.
+  if (empty($content)) {
+    array_push($content, array(
+      'title' => 'Test Title',
+      'description' => 'This is a description. Replace with data stream description by
+                        adding a comma seperated list of valid PIDs in this modules configuration page. ',
+      'img_url' => url($base_url . "/" . drupal_get_path('module', 'accordion_rotator') .
+                   '/images/example_4/Depositphotos_4297654_XL.jpg'),
+      )
+    );
+  }
+  return $content;
 }

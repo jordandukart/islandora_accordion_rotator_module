@@ -1,4 +1,4 @@
-﻿buttonsClass = function(classButton) {
+buttonsClass = function(classButton) {
 	
 	//NEXT OVER
 	$(classButton).append('<span class="hover"></span>').each(function () {  
@@ -18,6 +18,6 @@
 			$span.stop().fadeTo(500, 1);   
 	  	}, function () {  
 			$span.stop().fadeTo(500, 0); 
-		});  
+		});
 	}); 
 };

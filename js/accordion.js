@@ -1,6 +1,5 @@
-﻿(function(undefined) {
+(function(undefined) {
 $.fn.accordion = function( parameters){
-	
 	var width = 800;
 	var height = 800;
 	var barSize = 60;
@@ -93,7 +92,7 @@ $.fn.accordion = function( parameters){
 		$currentBlock.css("left", (i*(width/numBlocks))+"px");	
 		$currentBlock.attr("rel", i);
 		i++;
-		$currentBlock.append('<div class="loading"><img src="images/ui/ajax-loader.gif"/></div>');
+		$currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/images/ui/ajax-loader.gif"/></div>');
 	});
 	
 	//OVER A BLOCK
@@ -403,7 +402,7 @@ $.fn.accordion = function( parameters){
 					overBlock(currentOpened); }, autoplayTime);
 			
 		}
-			
+		$('.loading').remove();
 		img.src = $(".content_holder", $block).attr("src");
 	}
 	loadImage(0);
