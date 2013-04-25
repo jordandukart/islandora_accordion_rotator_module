@@ -1,7 +1,7 @@
 <?php 
 /**
  * @file
- * 
+ * Theme template for the accordion rotator module
  */
 
 ?>

@@ -75,7 +75,7 @@ function accordion_rotator_block_view($delta = '') {
         ),
       );
       // This settings variable is used in the js/accordion.js file to get the
-      // path for the left/right buttons.
+      // path for the left/right buttons.//
       $my_settings = array(
         'linkpath' => url(drupal_get_path('module', 'accordion_rotator')),
       );
