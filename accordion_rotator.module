@@ -137,6 +137,10 @@ function accordion_rotator_contents() {
         if (isset($fedora_object['MEDIUM_SIZE'])) {
           $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/MEDIUM_SIZE/view");
         }
+        // If JPEG is available, use it instead.
+        if (isset($fedora_object['JPEG'])) {
+          $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/JPEG/view");
+        }
         // Add this data as an entry to be displayed to the user as
         // an accordion block.
         array_push($content, array(

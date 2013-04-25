@@ -39,7 +39,7 @@ function accordion_rotator_form_validate($element) {
     $data_array = explode(',', $element['#value']);
 
     foreach ($data_array as $pid) {
-      $fedora_object = islandora_object_load($pid);
+      $fedora_object = islandora_object_load(str_replace(' ', '', $pid));
       if (!isset($fedora_object)) {
         form_set_error('accordion_pid_list', t('One or more of the provided PIDs is not valid.'));
       }

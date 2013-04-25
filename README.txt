@@ -10,13 +10,13 @@
 
 #### CONFIGURATION
  By default, there is a sample image and description. To configure additional content, gather
- a group of pids and enter them as a comma seperated list in the modules configuration page.
+ a group of pids and enter them as a comma seperated list in the modules configuration page. After
+ saving your new configuration, you will need to clear all cache in drupal before they will be displayed
+ in the accordion.
 
 #### TROUBLESHOOTING
 
-
 #### FAQ
-
 License: http://codecanyon.net/licenses/regular
 
 #### CONTACT
