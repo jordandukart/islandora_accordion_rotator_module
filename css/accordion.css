@@ -10,7 +10,7 @@
 	text-decoration:none;
 }
 
-#border{
+#acc_border{
 	background-color:#242424;
 	
 	/*for firefox, chrome and safari*/
@@ -23,12 +23,12 @@
 	
 }
 
-.accordion .holder{
+.accordion .acc_holder{
 	position: absolute;
 	top: 0; left: 0;
 }
 
-.accordion .holder .block .shadow{
+.accordion .acc_holder .acc_block .shadow{
 	position: absolute;
 	background-image:url(../images/ui/shadow.png);
 	background-repeat:no-repeat;
@@ -38,7 +38,7 @@
 	height:315px;
 }
 
-.accordion .holder .block{
+.accordion .acc_holder .acc_block{
 	position:absolute;
 	float:left;
 	
@@ -57,18 +57,18 @@
 	float:left;
 }
 
-.accordion .holder .content{
+.accordion .acc_holder .content{
 	position:absolute;
 }
 
-.accordion .holder .content_holder{
+.accordion .acc_holder .acc_content_holder{
 	position:absolute;
 }
 
-.accordion .holder .image{
+.accordion .acc_holder .acc_image{
 	position:absolute;
 }
-.accordion .holder .cover{
+.accordion .acc_holder .cover{
 	position:absolute;
 	background-color:#000000;
 }
@@ -107,7 +107,7 @@
 	padding-bottom:10px;
 }
 
-.accordion .box p.title{
+.accordion .box p.acc_title{
 	font-family: Arial;
 	font-size:18px;
 	font-weight:bold;
