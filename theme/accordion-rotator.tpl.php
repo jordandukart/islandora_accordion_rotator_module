@@ -5,15 +5,18 @@
  */
 
 ?>
-<div id="border">
+<div id="acc_border">
    <div id="accordion3" class="accordion">
-      <div class="holder">
+      <div class="acc_holder">
          <?php foreach ($block_data as $pid_block): ?>
-            <div class="block">
-              <div class="content_holder" src=<?php print $pid_block['img_url']; ?>>
-                 <div class="image"></div>
+            <div class="acc_block">
+              <div class="acc_content_holder" src=<?php print $pid_block['img_url']; ?>>
+                 <div class="acc_image"></div>
                  <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
-                    <div class="box"><p class="title"><?php print $pid_block['title']; ?></p><p class="text"><?php print $pid_block['description']; ?></p></div>
+                    <div class="box">
+                      <p class="acc_title"><?php print $pid_block['title']; ?></p>
+                      <p class="text"><?php print $pid_block['description']; ?></p>
+                    </div>
                  </div>
               </div>
            </div>

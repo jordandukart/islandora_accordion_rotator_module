@@ -67,6 +67,7 @@ function accordion_rotator_block_view($delta = '') {
           ),
           'js' => array(
             drupal_get_path('module', 'accordion_rotator') . '//jquery/jquery-1.6.2.min.js',
+            drupal_get_path('module', 'accordion_rotator') . '/js/resize.js',
             drupal_get_path('module', 'accordion_rotator') . '/js/script.js',
             drupal_get_path('module', 'accordion_rotator') . '/js/accordion.js',
             drupal_get_path('module', 'accordion_rotator') . '/js/pngFixer.js',
@@ -144,7 +145,7 @@ function accordion_rotator_contents() {
         // Add this data as an entry to be displayed to the user as
         // an accordion block.
         array_push($content, array(
-          'title' => $fedora_object->label,
+          'title' => $dc_object->dc['dc:title'][0],
           'description' => $dc_object->dc['dc:description'][0],
           'img_url' => $thumbnail_url,
           )

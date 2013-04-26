@@ -62,7 +62,7 @@ $.fn.accordion = function( parameters){
   }
   
   var $root = $(this);
-  var $blocks = $(".block", this);
+  var $blocks = $(".acc_block", this);
   
   var numBlocks = $blocks.size();
   
@@ -70,7 +70,7 @@ $.fn.accordion = function( parameters){
   var currentOpened = 0;
   var clickTypeTimeOut;
   
-  $(".holder", $root).css("width", width*2+"px");
+  $(".acc_holder", $root).css("width", width*2+"px");
   
   $blocks.css("width", width*2+"px");
   $blocks.css("height", height+"px");
@@ -78,7 +78,7 @@ $.fn.accordion = function( parameters){
   $root.css("width", width);
   $root.css("height", height+borderSize*2);
   
-  $(".holder .content", $root).css("opacity", 0);
+  $(".acc_holder .content", $root).css("opacity", 0);
   
   if(border){
     $blocks.css("border", "solid");
@@ -96,7 +96,7 @@ $.fn.accordion = function( parameters){
     $currentBlock.css("left", (i*(width/numBlocks))+"px");  
     $currentBlock.attr("rel", i);
     i++;
-    $currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/images/ui/ajax-loader.gif"/></div>');
+    $currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/ds/ui/ajax-loader.gif"/></div>');
   });
   
   //OVER A BLOCK
@@ -114,7 +114,7 @@ $.fn.accordion = function( parameters){
       }, transitionTime );
       
       
-      $(".content_holder", $thisBlock).stop().animate({
+      $(".acc_content_holder", $thisBlock).stop().animate({
         left: (-$thisBlock.width()/2+size/2)  
       }, transitionTime );
       
@@ -130,7 +130,7 @@ $.fn.accordion = function( parameters){
         if(i==num){
           left=false;
           if(cover)
-            $(".content_holder .cover", $block).stop().fadeTo(transitionTime, 0);  
+            $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, 0);  
         }
         else{
           if(left){
@@ -143,12 +143,12 @@ $.fn.accordion = function( parameters){
                left: width-barSize*(numBlocks-i)
             }, transitionTime );
           }
-          $(".content_holder", $block).stop().animate({
-            left: (-$(".content_holder", $block).width()/2+barSize/2)  
+          $(".acc_content_holder", $block).stop().animate({
+            left: (-$(".acc_content_holder", $block).width()/2+barSize/2)  
           }, transitionTime );
           
           if(cover)
-            $(".content_holder .cover", $block).stop().fadeTo(transitionTime, coverAlpha);
+            $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, coverAlpha);
             
           if(shadow)
             $(".shadow", $block).stop().animate({
@@ -310,12 +310,12 @@ $.fn.accordion = function( parameters){
          left: (i*(width/numBlocks))
       }, 300 );
       
-      $(".content_holder", $block).stop().animate({
-        left: (-$(".content_holder", $block).width()/2+(width/numBlocks)/2)
+      $(".acc_content_holder", $block).stop().animate({
+        left: (-$(".acc_content_holder", $block).width()/2+(width/numBlocks)/2)
       }, 300 );
       
       if(cover)
-        $(".content_holder .cover", $block).stop().fadeTo(transitionTime, 0);
+        $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, 0);
       
       if(shadow)
         $(".shadow", $block).stop().animate({
@@ -353,18 +353,18 @@ $.fn.accordion = function( parameters){
       
       $block.css("width", imgWidth+"px");
       
-      $(".content_holder", $block).css("width", imgWidth+"px");
-      $(".content_holder", $block).css("left", (-imgWidth/2+(width/numBlocks)/2)+"px");
+      $(".acc_content_holder", $block).css("width", imgWidth+"px");
+      $(".acc_content_holder", $block).css("left", (-imgWidth/2+(width/numBlocks)/2)+"px");
 
-      $(".content_holder .image", $block).append( img );
+      $(".acc_content_holder .acc_image", $block).append( img );
         
       $(".content", $block).css("padding-left", (imgWidth-size)/2+"px");
       $(".content", $block).css("padding-right", (imgWidth-size)/2+"px");
         
       if(cover){
-        var $cover = $(".content_holder .cover", $block);
+        var $cover = $(".acc_content_holder .cover", $block);
         
-        $(".content_holder", $block).append( '<div class="cover"></div>' );
+        $(".acc_content_holder", $block).append( '<div class="cover"></div>' );
         
         $cover.css("width", imgWidth+"px");
         $cover.css("height", imgHeight+"px");
@@ -407,7 +407,7 @@ $.fn.accordion = function( parameters){
       
     }
     $('.loading').remove();
-    img.src = $(".content_holder", $block).attr("src");
+    img.src = $(".acc_content_holder", $block).attr("src");
   }
   loadImage(0);
   

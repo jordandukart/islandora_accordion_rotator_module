@@ -4,7 +4,7 @@ jQuery(document).ready(function($) {
 
   $(".accordion").accordion({width:670,
     height:410,
-    barSize:40,
+    barSize:100,
     cover:false,
     coverAlpha:0.5,
     shadow:false,
@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
     autoplay:true,
     autoplayTime:5,
     changeType:"click",
-    previousBtn:$("#border div.previous"),
-    nextBtn:$("#border div.next")}
+    previousBtn:$("#acc_border div.previous"),
+    nextBtn:$("#acc_border div.next")}
     );
   });
