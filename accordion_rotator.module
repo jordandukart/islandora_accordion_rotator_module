@@ -144,9 +144,21 @@ function accordion_rotator_contents() {
         }
         // Add this data as an entry to be displayed to the user as
         // an accordion block.
+        $title = "";
+        $description = "";
+        if (isset($dc_object->dc['dc:title'][0])) {
+          $title = $dc_object->dc['dc:title'][0];
+        } else {
+          $title = "";
+        }
+        if (isset($dc_object->dc['dc:description'][0])) {
+          $description = $dc_object->dc['dc:description'][0];
+        } else {
+          $description = '';
+        }
         array_push($content, array(
-          'title' => $dc_object->dc['dc:title'][0],
-          'description' => $dc_object->dc['dc:description'][0],
+          'title' => $title,
+          'description' => $description,
           'img_url' => $thumbnail_url,
           )
         );
