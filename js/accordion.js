@@ -70,9 +70,9 @@ $.fn.accordion = function( parameters ){
   var currentOpened = 0;
   var clickTypeTimeOut;
   
-//  $(".acc_holder", $root).css("width", width*2+"px");
-//  
-//  $blocks.css("width", width*2+"px");
+  $(".acc_holder", $root).css("width", width*2+"px");
+  
+  $blocks.css("width", width*2+"px");
   $blocks.css("height", height+"px");
   
   $root.css("width", width);
