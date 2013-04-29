@@ -7,12 +7,13 @@
 ?>
 <div id="acc_border">
    <div id="accordion3" class="accordion">
-      <div class="acc_holder">
+      <div class="acc_holder" id="acc_holder">
+         <?php $block_count = 0; ?>
          <?php foreach ($block_data as $pid_block): ?>
-            <div class="acc_block">
+            <div class="acc_block" id="acc_block<?php print $block_count; ?>">
               <div class="acc_content_holder" src=<?php print $pid_block['img_url']; ?>>
                  <div class="acc_image"></div>
-                 <div class="content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
+                 <div class="acc_content" transitionType="bottom" transitionTime="0.5" distance="30" delay="0" x="0" y="0" alignV="bottom">
                     <div class="box">
                       <p class="acc_title"><?php print $pid_block['title']; ?></p>
                       <p class="text"><?php print $pid_block['description']; ?></p>
@@ -20,6 +21,7 @@
                  </div>
               </div>
            </div>
+         <?php $block_count++; ?>
          <?php endforeach; ?>
       </div>
    </div>
