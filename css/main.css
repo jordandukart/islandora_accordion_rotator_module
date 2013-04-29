@@ -1,16 +1,5 @@
-* {
-	margin:0;
-	padding:0;
-	text-decoration:none;
-	border:none;
-}
-
-body {
-     background-color: #cccccc;
-	background-image:url(../images/preview/Wood_floor_by_gnrbishop.jpg);
-	background-repeat:repeat;
-}
-
+/* Conflicting with theme styles, but may need to be re-applied
+**
 #main {
 	padding-top:20px;
 
@@ -22,49 +11,11 @@ body {
 	-webkit-border-radius: 10px;
 	-khtml-border-radius: 10px;
 	border-radius: 10px;
-}
+}*/
 
 #center {
 	width: 802px;
 	margin: 0px auto ;
-}
-
-#header {
-	width: 802px;
-	margin: 0px auto ;
-	padding-top: 20px;
-	padding-bottom: 30px;
-}
-
-#footer {
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:14px;
-	color:#333333;
-	width: 802px;
-	margin: 0px auto ;
-	margin-bottom:20px;
-}
-
-#social_links {
-	right:0px;
-	margin-top:-10px;
-	height: 30px;
-	float:right;
-}
-
-#social_links .social_button{
-	height:30px;
-	width:30px;
-	
-	position: relative;
-	margin:0 3px;
-	float:left;
-}
-
-#social_links .social_button span.hover{
-	height:30px;
-	width:30px;
-	position: absolute;
 }
 
 #accordion1{
@@ -104,64 +55,4 @@ div.notActive{
 
 div.notActive:hover{
 	opacity:0.9;
-}
-
-h1{
-text-align:right;
-
-	padding-top:20px;
-	padding-bottom:20px;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:24px;
-	color:#080808;
-	
-	border-bottom:solid;
-	border-bottom-color:#CCCCCC;
-	border-bottom-width:3px;
-	
-	border-top:solid;
-	border-top-color:#CCCCCC;
-	border-top-width:3px;
-}
-
-h1 span{
-	font-size:18px;
-	color:#4EEF1F;
-}
-
-h1 img{
-	float:left;
-	position:relative;
-	top:-12px;
-}
-
-p{
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:15px;
-	
-	padding-top:10px;
-	padding-bottom:10px;
-	padding-left:10px;
-	padding-right:10px;
-	
-	margin-bottom:20px;
-	margin-top:20px;
-}
-
-p.box{
-	background-color:#E0E0E0;
-	
-}
-
-h2{
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:18px;
-	color:#080808;
-	
-	border-bottom:solid;
-	border-bottom-color:#CCCCCC;
-	border-bottom-width:2px;
-	
-	margin-bottom:15px;
-	margin-top:50px;
 }

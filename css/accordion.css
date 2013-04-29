@@ -33,7 +33,6 @@
 	background-image:url(../images/ui/shadow.png);
 	background-repeat:no-repeat;
 	background-position:right;
-	
 	width:200px;
 	height:315px;
 }
@@ -41,12 +40,8 @@
 .accordion .acc_holder .acc_block{
 	position:absolute;
 	float:left;
-	
 	width:50px;
 	height:315px;
-	
-	background-color:#FFFFFF;
-	
 	overflow:hidden;
 }
 

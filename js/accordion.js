@@ -3,10 +3,17 @@
  */
 var width = 665;
 (function(undefined) {
+<<<<<<< HEAD
 $.fn.accordion = function( parameters){
   
   var height = 800;
   var barSize = 40;
+=======
+$.fn.accordion = function( parameters ){
+  var width = 960;
+  var height = 800;
+  var barSize = 0;
+>>>>>>> 015ddad2b1e2a145b9baacb41940d9dd6933cda7
   var cover = false;
   var coverAlpha = 0.7;
   var shadow = false;
@@ -47,7 +54,7 @@ $.fn.accordion = function( parameters){
     transitionTime = parameters.transitionTime;
     transitionTime*=1000;
   }
-  if ( parameters.autoplay != undefined )
+ if ( parameters.autoplay != undefined )
     autoplay = parameters.autoplay;
   if ( parameters.autoplayTime != undefined ){
     autoplayTime = parameters.autoplayTime;
