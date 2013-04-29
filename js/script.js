@@ -2,9 +2,9 @@ jQuery(document).ready(function($) {
   buttonsClass("div.social_button");
   buttonsClass("div.accordion_button");
 
-  $(".accordion").accordion({width: $(".acc_border").width() ,
+  $(".accordion").accordion({width: $("#acc_border").width() ,
     height:410,
-    barSize:150,
+    barSize:100,
     cover:false,
     coverAlpha:0.5,
     shadow:false,
