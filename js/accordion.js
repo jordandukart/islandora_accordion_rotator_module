@@ -1,12 +1,19 @@
 /**
  * @file
  */
-
+var width = 665;
 (function(undefined) {
+<<<<<<< HEAD
+$.fn.accordion = function( parameters){
+  
+  var height = 800;
+  var barSize = 40;
+=======
 $.fn.accordion = function( parameters ){
   var width = 960;
   var height = 800;
   var barSize = 0;
+>>>>>>> 015ddad2b1e2a145b9baacb41940d9dd6933cda7
   var cover = false;
   var coverAlpha = 0.7;
   var shadow = false;
@@ -70,15 +77,15 @@ $.fn.accordion = function( parameters ){
   var currentOpened = 0;
   var clickTypeTimeOut;
   
-  $(".acc_holder", $root).css("width", width*2+"px");
-  
-  $blocks.css("width", width*2+"px");
+//  $(".acc_holder", $root).css("width", width*2+"px");
+//  
+//  $blocks.css("width", width*2+"px");
   $blocks.css("height", height+"px");
   
   $root.css("width", width);
   $root.css("height", height+borderSize*2);
   
-  $(".acc_holder .content", $root).css("opacity", 0);
+  $(".acc_holder .acc_content", $root).css("opacity", 0);
   
   if(border){
     $blocks.css("border", "solid");
@@ -96,7 +103,7 @@ $.fn.accordion = function( parameters ){
     $currentBlock.css("left", (i*(width/numBlocks))+"px");  
     $currentBlock.attr("rel", i);
     i++;
-    $currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/ds/ui/ajax-loader.gif"/></div>');
+    //$currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/ds/ui/ajax-loader.gif"/></div>');
   });
   
   //OVER A BLOCK
@@ -157,7 +164,7 @@ $.fn.accordion = function( parameters ){
         }
       }
       
-      $(".content", $thisBlock).each(function(){
+      $(".acc_content", $thisBlock).each(function(){
         var $this = $(this);
         
         $this.clearQueue();
@@ -238,7 +245,7 @@ $.fn.accordion = function( parameters ){
   var outBlockContent = function(num){
     var $thisBlock = $($blocks[num]);
     
-    $(".content", $thisBlock).each(function(){
+    $(".acc_content", $thisBlock).each(function(){
       var $this = $(this);
       
       $this.clearQueue();
@@ -314,13 +321,13 @@ $.fn.accordion = function( parameters ){
         left: (-$(".acc_content_holder", $block).width()/2+(width/numBlocks)/2)
       }, 300 );
       
-      if(cover)
-        $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, 0);
+//      if(cover)
+//        $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, 0);
       
-      if(shadow)
-        $(".shadow", $block).stop().animate({
-           width: (width/numBlocks)
-        }, transitionTime );
+//      if(shadow)
+//        $(".shadow", $block).stop().animate({
+//           width: (width/numBlocks)
+//        }, transitionTime );
     }
   }
   
@@ -358,8 +365,8 @@ $.fn.accordion = function( parameters ){
 
       $(".acc_content_holder .acc_image", $block).append( img );
         
-      $(".content", $block).css("padding-left", (imgWidth-size)/2+"px");
-      $(".content", $block).css("padding-right", (imgWidth-size)/2+"px");
+      $(".acc_content", $block).css("padding-left", (imgWidth-size)/2+"px");
+      $(".acc_content", $block).css("padding-right", (imgWidth-size)/2+"px");
         
       if(cover){
         var $cover = $(".acc_content_holder .cover", $block);
@@ -406,7 +413,7 @@ $.fn.accordion = function( parameters ){
           overBlock(currentOpened); }, autoplayTime);
       
     }
-    $('.loading').remove();
+    //$('.loading').remove();
     img.src = $(".acc_content_holder", $block).attr("src");
   }
   loadImage(0);
