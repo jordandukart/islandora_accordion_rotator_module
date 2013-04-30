@@ -127,28 +127,28 @@
 }
 
 div.accordion_button{
-	height:71px;
-	width:71px;
+	height:45px;
+	width:45px;
 	
 	position: relative;
-	bottom: 250px;
+	bottom: 230px;
 	
 	cursor:pointer;
 }
 
 div.accordion_button.previous{
 	float:left;
-	margin-left:-40px;
+	margin-left:-23px;
 	
 }
 div.accordion_button.next{
 	float:right;
-	margin-right:-40px;
+	margin-right:-23px;
 }
 
 div.accordion_button span.hover{
-	height:71px;
-	width:71px;
+	height:45px;
+	width:45px;
 	position: absolute;
 }
 
