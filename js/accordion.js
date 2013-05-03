@@ -2,6 +2,8 @@
  * @file
  */
 var width = 665;
+var $blocks = null;
+
 (function(undefined) {
 $.fn.accordion = function( parameters ){
   var width = 960;
@@ -21,6 +23,7 @@ $.fn.accordion = function( parameters ){
   var buttons = false;
   var previousBtn = undefined;
   var nextBtn = undefined;
+  
 
 //PARSE PARAMETERS
   if ( parameters.width != undefined )
@@ -62,7 +65,7 @@ $.fn.accordion = function( parameters ){
   }
   
   var $root = $(this);
-  var $blocks = $(".acc_block", this);
+  $blocks = $(".acc_block", this);
   
   var numBlocks = $blocks.size();
   
@@ -101,7 +104,6 @@ $.fn.accordion = function( parameters ){
   
   //OVER A BLOCK
   var overBlock = function(num){
-    
     var $thisBlock = $($blocks[num]);
     
     if(!$thisBlock.hasClass("locked")){
@@ -232,6 +234,9 @@ $.fn.accordion = function( parameters ){
           overBlock(currentOpened); }, autoplayTime);
       }
     }
+    
+    // TODO: Update the selected text to be visible above....
+    updateDetails(currentOpened);
   }
   
   
@@ -286,7 +291,8 @@ $.fn.accordion = function( parameters ){
       else if(type=="bottom")
         top+=distance;
           
-        
+      $('#acc_data').append($this);
+      
       $this.stop().animate({
         left: left,
         top: top,
@@ -414,6 +420,7 @@ $.fn.accordion = function( parameters ){
   if(buttons){
     previousBtn.click(function(){
       outBlock(currentOpened);
+      updateDetails(currentOpened);
       if(currentOpened>0)
         currentOpened--;
       else
@@ -422,6 +429,7 @@ $.fn.accordion = function( parameters ){
     });
     nextBtn.click(function(){
       outBlock(currentOpened);
+      updateDetails(currentOpened);
       if(currentOpened<(numBlocks-1))
         currentOpened++;
       else
@@ -432,3 +440,17 @@ $.fn.accordion = function( parameters ){
   
 };
 }());
+
+
+/**
+ * Most elegant solution i can think of to 
+ * update the description boxes
+ * @param divbox
+ */
+function updateDetails(divbox) {
+  var children = $('#acc_data').children();
+  for(var i = 0; i < children.length; i++) {
+    $("#" + children[i].id).hide();
+  }
+  $("#acc_content" + divbox).show();
+}
