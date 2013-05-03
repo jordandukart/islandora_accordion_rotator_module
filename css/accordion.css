@@ -14,13 +14,7 @@
 	background-color:#242424;
 	
 	/*for firefox, chrome and safari*/
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
-	-khtml-border-radius: 10px;
-	border-radius: 10px;
-	
-	padding:10px;
-	
+	padding:2px;
 }
 
 .accordion .acc_holder{
@@ -42,7 +36,6 @@
 	float:left;
 	width:50px;
 	height:315px;
-	overflow:hidden;
 }
 
 .loading{
