@@ -1,6 +1,6 @@
 $(window).resize(function() {
   //replace $(window).width() call to another div being resized..
-  $("#acc_border").width($(window).width()/2);
+  $("#acc_border").width($("#navigation").width());
   $("#accordion3").width($("#acc_border").width());
 
   var block_width = 0;
