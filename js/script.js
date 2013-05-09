@@ -14,10 +14,10 @@ jQuery(document).ready(function($) {
  * rotator.
  */
 function get_data(place) {
-	//console.log("get_data for page: " + place);
-	//console.log("Current Page: " + current_page);
-	//console.log("Num of blocks: " + numBlocks);
-	//console.log("page sentinal: " + page_sentinal);
+	console.log("get_data for page: " + place);
+	console.log("Current Page: " + current_page);
+	console.log("Num of blocks: " + numBlocks);
+	console.log("page sentinal: " + page_sentinal);
 	
     if($(window).width() < 320) {
       numBlocks = 1;
@@ -48,7 +48,7 @@ function get_data(place) {
  * be drawn
  */
 function build_form() {
-	//console.log("build_form entered");
+	console.log("build_form entered");
   $('#acc_border').append("<div class='accordion' id='accordion3'></div>");
   $('#accordion3').append("<div class='acc_holder' id='acc_holder'></div>");
   
@@ -56,18 +56,12 @@ function build_form() {
   
   buttonsClass("div.social_button");
   buttonsClass("div.accordion_button");
+  
+  var total = all_data["content"].length;
   for(var i = 0;i<6;i++) {
-    if(all_data["content"][page_sentinal + i] != null) {
-        add_image_block(page_sentinal + i);    
-    } else {
-      i=numBlocks;
-      page_sentinal = 0;
-      $('#acc_holder').remove(".acc_block");
-      empty_form();
-      build_form();
-      //load_rotator();  
-    }
+    add_image_block((page_sentinal + i) % total);     
   }
+  
   // Hide description fields for the time being...
   $(".acc_content").hide();
 }
@@ -75,7 +69,7 @@ function build_form() {
  * Adds buttons to the accordion for navigation.
  */
 function add_buttons() {
-	//console.log("add_buttons entered");
+	console.log("add_buttons entered");
 	var img_path = window.parent.Drupal.settings.accordion_rotator.linkpath;
 	$('#acc_border').append("<div id='acc_previous' class='previous accordion_button' normal='" + img_path + "/images/ui/previous_button.png' over='" + img_path + "/images/ui/previous_button_over.png'></div>");
 	$('#acc_border').append("<div id='acc_next' class='next accordion_button' normal='" + img_path + "/images/ui/next_button.png' over='" + img_path + "/images/ui/next_button_over.png'></div>");
@@ -88,7 +82,7 @@ function add_buttons() {
  * @param sentinal
  */
 function add_image_block(sentinal) {
-	//console.log("add_image_block entered");
+	console.log("add_image_block entered");
   $('#acc_holder').append("<div class='acc_block' id='acc_block" + sentinal + "'></div>");
   $('#acc_block' + sentinal).append("<div class='acc_content_holder' id='acc_content_holder" + sentinal + "' src='" + all_data["content"][sentinal].img_url + "'></div>");
   $('#acc_content_holder' + sentinal).append("<div class='acc_image'></div>");
@@ -101,7 +95,7 @@ function add_image_block(sentinal) {
  * @param id_num
  */
 function add_detail_block(details,id_num) {
-	//console.log("add_detail_block entered");
+	console.log("add_detail_block entered");
   $('#acc_data').append("<div id='acc_content" + id_num + "' class='acc_content' transitionType='bottom' transitionTime='0.5' distance='30' delay='0' x='0' y='0' alignV='top'></div>");
   $('#acc_content' + id_num).append("<div class='box' id='box" + id_num + "'></div>");
   $('#box' + id_num).append("<p class='acc_title'>" + details.title + "</p>");
@@ -111,8 +105,8 @@ function add_detail_block(details,id_num) {
  * Initilize the rotator with default params
  */
 function load_rotator() {
-	//console.log("load_rotator entered");
-	//console.log("input width: " + $("#acc_border").width())
+	console.log("load_rotator entered");
+	console.log("input width: " + $("#acc_border").width())
   $(".accordion").accordion({ width: 750,
           sentData:all_data["content"],
           height:410,
