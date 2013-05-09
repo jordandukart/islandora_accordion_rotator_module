@@ -2,13 +2,12 @@
  * @file
  */
 var width = 665;
-var $blocks = null;
 
 (function(undefined) {
 $.fn.accordion = function( parameters ){
   var width = 960;
   var height = 800;
-  var barSize = 0;
+  var barSize = 120;
   var cover = false;
   var coverAlpha = 0.7;
   var shadow = false;
@@ -23,11 +22,16 @@ $.fn.accordion = function( parameters ){
   var buttons = false;
   var previousBtn = undefined;
   var nextBtn = undefined;
-  
+  var sentData = undefined;
 
 //PARSE PARAMETERS
-  if ( parameters.width != undefined )
+  if(parameters.sentData != undefined) {
+    sentData = parameters.sentData;
+  }
+  if ( parameters.width != undefined ) {
     width = parameters.width;
+    //console.log(width);
+  }
   if ( parameters.height != undefined ) 
     height = parameters.height;
   if ( parameters.barSize != undefined )
@@ -67,9 +71,11 @@ $.fn.accordion = function( parameters ){
   var $root = $(this);
   $blocks = $(".acc_block", this);
   
-  var numBlocks = $blocks.size();
+  numBlocks = $blocks.size();
   
   var size = width - barSize*(numBlocks-1);
+  //console.log("size formula components: width=" + width + " form=" + barSize*(numBlocks-1));
+  //console.log("form components: barSize=" + barSize + " numBlocks=" + numBlocks);
   var currentOpened = 0;
   var clickTypeTimeOut;
   
@@ -97,6 +103,8 @@ $.fn.accordion = function( parameters ){
   $blocks.each(function(){
     var $currentBlock = $(this);
     $currentBlock.css("left", (i*(width/numBlocks))+"px");  
+    //console.log("current block css left: " + i*(width/numBlocks)+"px");
+    //console.log("current block parent width: " + $('#acc_holder').width());
     $currentBlock.attr("rel", i);
     i++;
     //$currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/ds/ui/ajax-loader.gif"/></div>');
@@ -105,7 +113,7 @@ $.fn.accordion = function( parameters ){
   //OVER A BLOCK
   var overBlock = function(num){
     var $thisBlock = $($blocks[num]);
-    
+    $thisBlock.clearQueue();
     if(!$thisBlock.hasClass("locked")){
       currentOpened = num;
       
@@ -119,12 +127,12 @@ $.fn.accordion = function( parameters ){
       $(".acc_content_holder", $thisBlock).stop().animate({
         left: (-$thisBlock.width()/2+size/2)  
       }, transitionTime );
-      
+      //console.log("acc_content_holder left after animate: " + (-$thisBlock.width()/2+size/2));
       if(shadow)
         $(".shadow", $thisBlock).stop().animate({
            width: size
         }, transitionTime );
-      
+      //console.log("size before left=true: " + size);
       var left=true;
       for(var i=0; i<numBlocks; i++){
         var $block = $($blocks[i]);
@@ -159,6 +167,7 @@ $.fn.accordion = function( parameters ){
         }
       }
       
+      // This is for the old style of title/description
       $(".acc_content", $thisBlock).each(function(){
         var $this = $(this);
         
@@ -202,10 +211,6 @@ $.fn.accordion = function( parameters ){
           left = size-$this.width()-left;
         }
       
-        $this.css("left", left+'px');
-        $this.css("top", top+'px');
-        
-        
         if(type=="left")
           $this.css("left", (left-distance)+'px');
         else if(type=="right")
@@ -224,18 +229,18 @@ $.fn.accordion = function( parameters ){
       });
       
       if(changeType=="click"){
-        clearTimeout(clickTypeTimeOut);
-        clickTypeTimeOut = setTimeout(function(){ 
-          outBlock(currentOpened);
-          if(currentOpened<(numBlocks-1))
-            currentOpened++;
-          else
-            currentOpened = 0;
-          overBlock(currentOpened); }, autoplayTime);
+        //clearTimeout(clickTypeTimeOut);
+//        clickTypeTimeOut = setTimeout(function(){ 
+//          outBlock(currentOpened);
+//          //alert("Current Opened: " + currentOpened + ", Num Blocks: " + numBlocks);
+//          if(currentOpened<(numBlocks-1))
+//            currentOpened++;
+//          else
+//            currentOpened = 0;
+//          overBlock(currentOpened); }, autoplayTime);
       }
     }
     
-    // TODO: Update the selected text to be visible above....
     updateDetails(currentOpened);
   }
   
@@ -291,7 +296,7 @@ $.fn.accordion = function( parameters ){
       else if(type=="bottom")
         top+=distance;
           
-      $('#acc_data').append($this);
+      //$('#acc_data').append($this);
       
       $this.stop().animate({
         left: left,
@@ -320,13 +325,13 @@ $.fn.accordion = function( parameters ){
         left: (-$(".acc_content_holder", $block).width()/2+(width/numBlocks)/2)
       }, 300 );
       
-//      if(cover)
-//        $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, 0);
+      if(cover)
+        $(".acc_content_holder .cover", $block).stop().fadeTo(transitionTime, 0);
       
-//      if(shadow)
-//        $(".shadow", $block).stop().animate({
-//           width: (width/numBlocks)
-//        }, transitionTime );
+      if(shadow)
+        $(".shadow", $block).stop().animate({
+           width: (width/numBlocks)
+        }, transitionTime );
     }
   }
   
@@ -407,10 +412,10 @@ $.fn.accordion = function( parameters ){
         num++
         loadImage(num);
       }
-      else
-        clickTypeTimeOut = setTimeout(function(){ 
-          overBlock(currentOpened); }, autoplayTime);
-      
+      else {
+        //clickTypeTimeOut = setTimeout(function(){ 
+          //overBlock(currentOpened); }, autoplayTime);
+      }
     }
     //$('.loading').remove();
     img.src = $(".acc_content_holder", $block).attr("src");
@@ -421,19 +426,36 @@ $.fn.accordion = function( parameters ){
     previousBtn.click(function(){
       outBlock(currentOpened);
       updateDetails(currentOpened);
-      if(currentOpened>0)
+      if(currentOpened>0) {
         currentOpened--;
-      else
-        currentOpened = numBlocks-1;
+      }
+      else {
+      // Check for more and post if necessary
+      if($('#acc_holder').children().length == all_data.length && current_page != 1) {
+        currentOpened = numBlocks-1; 
+      } else {
+        get_next_page("previous");
+        currentOpened = 0;
+      }
+        
+      }
       overBlock(currentOpened);
     });
     nextBtn.click(function(){
       outBlock(currentOpened);
       updateDetails(currentOpened);
-      if(currentOpened<(numBlocks-1))
-        currentOpened++;
-      else
-        currentOpened = 0;
+      if(currentOpened<(numBlocks-1)) {
+      currentOpened++;
+      } else {
+      // Check for more and post if necessary
+        if($('#acc_holder').children().length == all_data.length) {
+          currentOpened = 0;
+        } else {
+          get_next_page("next");
+          currentOpened = 0
+        }
+        
+      }
       overBlock(currentOpened); 
     });
   }
@@ -441,7 +463,60 @@ $.fn.accordion = function( parameters ){
 };
 }());
 
-
+/**
+ * Cleans up the rotator for every page
+ */
+function empty_form() {
+  
+  $('.acc_block').clearQueue();
+  $('.acc_holder').clearQueue();
+  $('.acc_content_holder').clearQueue();
+  $('.acc_image').clearQueue();
+  $('.accordion').clearQueue();
+  
+  $('.acc_block').removeClass("locked");
+  
+  $('.acc_block').remove();
+  $('.acc_holder').empty();
+  $('#acc_data').empty();
+  $('.accordion').remove();
+  $('#acc_previous').remove();
+  $('#acc_next').remove();
+  //console.log("Empted form");
+}
+/**
+ * Paging functionality
+ */
+function get_next_page($direction) {
+  //console.log("get_next_page entered");
+  if($direction == "next") {
+    page_sentinal = page_sentinal + $('#acc_holder').children().size();
+    if(page_sentinal >= all_data.length) {
+      current_page = 1;
+    }
+    else {
+      current_page++;
+    }
+    //console.log("current page: " + current_page + " page sentinal: " + page_sentinal);
+  } else {
+    page_sentinal = page_sentinal - $('#acc_holder').children().size();
+    if(page_sentinal < 0) {
+      page_sentinal = 0;
+      current_page = 1;
+    } else {
+      current_page--;
+      if(current_page <1) {
+        current_page = 1
+      }
+    }
+    
+  }
+  empty_form();
+  all_data = [];
+  get_data(current_page);
+  build_form();
+  load_rotator();  
+}
 /**
  * Most elegant solution i can think of to 
  * update the description boxes
@@ -452,5 +527,5 @@ function updateDetails(divbox) {
   for(var i = 0; i < children.length; i++) {
     $("#" + children[i].id).hide();
   }
-  $("#acc_content" + divbox).show();
+  $("#acc_content" + (page_sentinal + divbox)).show();
 }
