@@ -24,7 +24,13 @@ function accordion_rotator_help($path, $arg) {
  */
 function accordion_rotator_menu() {
   $items = array();
-
+  $items['accordion_rotator/setup/%'] = array(
+    'page callback' => 'accordion_rotator_canvas_setup',
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array(2),
+    'file' => 'includes/utils.inc',
+  );
   $items['admin/config/content/accordion_rotator'] = array(
     'title' => 'Accordion Rotator Configuration',
     'description' => 'Configuration for The Accordion Rotator module',

@@ -2,4 +2,5 @@ name = Accordion Rotator
 description = A block module that displays datastream's in an interactive accordion.
 core = 7.x
 dependencies[] = islandora
+dependencies[] = islandora_basic_collection
 configure = admin/config/content/accordion_rotator
