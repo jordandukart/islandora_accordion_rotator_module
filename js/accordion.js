@@ -30,7 +30,7 @@ $.fn.accordion = function( parameters ){
   }
   if ( parameters.width != undefined ) {
     width = parameters.width;
-    console.log(width);
+    //console.log(width);
   }
   if ( parameters.height != undefined ) 
     height = parameters.height;
@@ -74,6 +74,8 @@ $.fn.accordion = function( parameters ){
   numBlocks = $blocks.size();
   
   var size = width - barSize*(numBlocks-1);
+  //console.log("size formula components: width=" + width + " form=" + barSize*(numBlocks-1));
+  //console.log("form components: barSize=" + barSize + " numBlocks=" + numBlocks);
   var currentOpened = 0;
   var clickTypeTimeOut;
   
@@ -101,6 +103,8 @@ $.fn.accordion = function( parameters ){
   $blocks.each(function(){
     var $currentBlock = $(this);
     $currentBlock.css("left", (i*(width/numBlocks))+"px");  
+    //console.log("current block css left: " + i*(width/numBlocks)+"px");
+    //console.log("current block parent width: " + $('#acc_holder').width());
     $currentBlock.attr("rel", i);
     i++;
     //$currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/ds/ui/ajax-loader.gif"/></div>');
@@ -123,12 +127,12 @@ $.fn.accordion = function( parameters ){
       $(".acc_content_holder", $thisBlock).stop().animate({
         left: (-$thisBlock.width()/2+size/2)  
       }, transitionTime );
-      
+      //console.log("acc_content_holder left after animate: " + (-$thisBlock.width()/2+size/2));
       if(shadow)
         $(".shadow", $thisBlock).stop().animate({
            width: size
         }, transitionTime );
-      
+      //console.log("size before left=true: " + size);
       var left=true;
       for(var i=0; i<numBlocks; i++){
         var $block = $($blocks[i]);
@@ -470,7 +474,7 @@ function empty_form() {
   $('.acc_image').clearQueue();
   $('.accordion').clearQueue();
   
-  $('.acc_block').removeClass("someClass");
+  $('.acc_block').removeClass("locked");
   
   $('.acc_block').remove();
   $('.acc_holder').empty();
@@ -478,16 +482,22 @@ function empty_form() {
   $('.accordion').remove();
   $('#acc_previous').remove();
   $('#acc_next').remove();
-  console.log("Empted form");
+  //console.log("Empted form");
 }
 /**
  * Paging functionality
  */
 function get_next_page($direction) {
-  console.log("get_next_page entered");
+  //console.log("get_next_page entered");
   if($direction == "next") {
     page_sentinal = page_sentinal + $('#acc_holder').children().size();
-    current_page++;
+    if(page_sentinal >= all_data.length) {
+      current_page = 1;
+    }
+    else {
+      current_page++;
+    }
+    //console.log("current page: " + current_page + " page sentinal: " + page_sentinal);
   } else {
     page_sentinal = page_sentinal - $('#acc_holder').children().size();
     if(page_sentinal < 0) {
