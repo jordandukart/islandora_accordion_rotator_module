@@ -1,5 +1,3 @@
-// Indicate if the window is to small to show the true accordion.
-// Instead, use 'paging' like functionality.
 $(window).resize(function() {
   resize_frame();
   $(".acc_content").hide();
@@ -36,10 +34,17 @@ $(window).resize(function() {
 //  }
   resize_blocks();
 });
+/**
+ * handles dynamic frame and accordion width
+ */
 function resize_frame() {
   $("#acc_border").width($(window).width()/2);
   $("#accordion3").width($("#acc_border").width());
 }
+/**
+ * Properly adjusts each block's location
+ * on page resize.
+ */
 function resize_blocks() {
   var children = $('#acc_holder').children();
   var block_width = 0;

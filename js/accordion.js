@@ -459,6 +459,9 @@ $.fn.accordion = function( parameters ){
 };
 }());
 
+/**
+ * Cleans up the rotator for every page
+ */
 function empty_form() {
   $('.acc_block').clearQueue();
   $('.acc_holder').clearQueue();
@@ -471,9 +474,12 @@ function empty_form() {
   $('.acc_block').remove();
   $('.acc_holder').empty();
   $('#acc_data').empty();
+  $('.accordion').remove();
+  $('#acc_previous').remove();
+  $('#acc_next').remove();
 }
 /**
- * 
+ * Paging functionality
  */
 function get_next_page($direction) {
   if($direction == "next") {
