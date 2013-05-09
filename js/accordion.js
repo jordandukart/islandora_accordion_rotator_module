@@ -29,8 +29,8 @@ $.fn.accordion = function( parameters ){
     sentData = parameters.sentData;
   }
   if ( parameters.width != undefined ) {
-	console.log(width)
     width = parameters.width;
+    console.log(width);
   }
   if ( parameters.height != undefined ) 
     height = parameters.height;
@@ -463,6 +463,7 @@ $.fn.accordion = function( parameters ){
  * Cleans up the rotator for every page
  */
 function empty_form() {
+  
   $('.acc_block').clearQueue();
   $('.acc_holder').clearQueue();
   $('.acc_content_holder').clearQueue();
@@ -477,11 +478,13 @@ function empty_form() {
   $('.accordion').remove();
   $('#acc_previous').remove();
   $('#acc_next').remove();
+  console.log("Empted form");
 }
 /**
  * Paging functionality
  */
 function get_next_page($direction) {
+  console.log("get_next_page entered");
   if($direction == "next") {
     page_sentinal = page_sentinal + $('#acc_holder').children().size();
     current_page++;

@@ -159,11 +159,11 @@ function accordion_rotator_contents() {
         }
         if (isset($dc_object->dc['dc:description'][0])) {
           $description = $dc_object->dc['dc:description'][0];
-          print($description);
+          //print($description);
         } else {
           $description = '';
         }
-        print($description);
+        //print($description);
         array_push($content, array(
           'title' => $title,
           'description' => $description,
