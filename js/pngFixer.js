@@ -1,3 +1,12 @@
+/**
+ * @file
+ * IE fix for the buttons
+ */
+
+/**
+ * This function came to use when the javascript rotator control was purchased.
+ * Leaving it in for completness sake.
+ */
 function fnFixPng($obj) {
   if (navigator.platform == "Win32" && navigator.appName == "Microsoft Internet Explorer" && window.attachEvent) {
     var bg  = $obj.css("background-image");

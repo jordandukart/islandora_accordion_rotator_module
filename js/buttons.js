@@ -1,3 +1,7 @@
+/**
+ * @file
+ * Appearance logic for the rotator buttons
+ */
 buttonsClass = function(classButton) {
   //NEXT OVER
   $(classButton).append('<span class="hover"></span>').each(function () {  
