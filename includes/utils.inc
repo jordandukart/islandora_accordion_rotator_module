@@ -45,36 +45,31 @@ function accordion_rotator_form_validate($element) {
       }
     }
   }
-  
-
 }
   /**
-   * Callback to setup variables for the accordion
+   * Callback to setup variables for the accordion.
    */
 function accordion_rotator_canvas_setup($place) {
 
   module_load_include('inc', 'islandora', 'includes/IslandoraTuque');
   module_load_include('inc', 'islandora', 'includes/datastream');
   module_load_include('inc', 'islandora_paged_content', 'includes/utilities');
-  
+
   global $base_url;
   // Get the configuration pids from this modules configuration page.
   $content = array();
-  //$pids_array = [];
   $pids_array = array();
   if ($place == 1) {
     $pids_array = explode(",", variable_get('accordion_pid_list'));
   }
-  //$fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-  
+
   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-  $rtdata = islandora_basic_collection_get_objects($fedora_object2,intval($place),6);
+  $rtdata = islandora_basic_collection_get_objects($fedora_object2, intval($place), 6);
   foreach ($rtdata as $members) {
-    if(isset($members['object']['value'])) {
-      if(!in_array($members['object']['value'],$pids_array)) {
-        array_push($pids_array,$members['object']['value']);
+    if (isset($members['object']['value'])) {
+      if (!in_array($members['object']['value'], $pids_array)) {
+        array_push($pids_array, $members['object']['value']);
       }
-      
     }
   }
   // Safety Check.
@@ -86,17 +81,17 @@ function accordion_rotator_canvas_setup($place) {
     foreach ($pids_array as $pid) {
       // Load the associated fedora object by pid.
       $fedora_object = islandora_object_load($pid);
-      
+
       // Check the objects existance, incase any faulty pids got past.
       // the configuration page validation.
-      if ($fedora_object != null) {
+      if ($fedora_object != NULL) {
         // Grab the DC Datastream's contents, gets description.
         $dc_object;
-        if(isset($fedora_object['DC']->content)) {
+        if (isset($fedora_object['DC']->content)) {
           $dc = $fedora_object['DC']->content;
           $dc_object = DublinCore::importFromXMLString($dc);
         }
-        
+
         $thumbnail_url = '';
         // Try to set the best quality image as the url.
         if (isset($fedora_object['TN'])) {
@@ -116,16 +111,16 @@ function accordion_rotator_canvas_setup($place) {
         $description = "";
         if (isset($dc_object->dc['dc:title'][0])) {
           $title = $dc_object->dc['dc:title'][0];
-        } else {
+        }
+        else {
           $title = "";
         }
         if (isset($dc_object->dc['dc:description'][0])) {
           $description = $dc_object->dc['dc:description'][0];
-          //print($description);
-        } else {
+        }
+        else {
           $description = '';
         }
-        //print($description);
         array_push($content, array(
         'title' => $title,
         'description' => $description,

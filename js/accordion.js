@@ -1,5 +1,8 @@
 /**
  * @file
+ * This is the meat of the accordion rotator module
+ * that was purchased. The last 3 functions of this file
+ * are custom.
  */
 var width = 665;
 
@@ -30,7 +33,6 @@ $.fn.accordion = function( parameters ){
   }
   if ( parameters.width != undefined ) {
     width = parameters.width;
-    console.log(width);
   }
   if ( parameters.height != undefined ) 
     height = parameters.height;
@@ -74,8 +76,6 @@ $.fn.accordion = function( parameters ){
   numBlocks = $blocks.size();
   
   var size = width - barSize*(numBlocks-1);
-  console.log("size formula components: width=" + width + " form=" + barSize*(numBlocks-1));
-  console.log("form components: barSize=" + barSize + " numBlocks=" + numBlocks);
   var currentOpened = 0;
   var clickTypeTimeOut;
   
@@ -103,8 +103,6 @@ $.fn.accordion = function( parameters ){
   $blocks.each(function(){
     var $currentBlock = $(this);
     $currentBlock.css("left", (i*(width/numBlocks))+"px");  
-    console.log("current block css left: " + i*(width/numBlocks)+"px");
-    console.log("current block parent width: " + $('#acc_holder').width());
     $currentBlock.attr("rel", i);
     i++;
     //$currentBlock.append('<div class="loading"><img src="' + window.parent.Drupal.settings.accordion_rotator.linkpath + '/ds/ui/ajax-loader.gif"/></div>');
@@ -127,12 +125,10 @@ $.fn.accordion = function( parameters ){
       $(".acc_content_holder", $thisBlock).stop().animate({
         left: (-$thisBlock.width()/2+size/2)  
       }, transitionTime );
-      console.log("acc_content_holder left after animate: " + (-$thisBlock.width()/2+size/2));
       if(shadow)
         $(".shadow", $thisBlock).stop().animate({
            width: size
         }, transitionTime );
-      console.log("size before left=true: " + size);
       var left=true;
       for(var i=0; i<numBlocks; i++){
         var $block = $($blocks[i]);
@@ -414,7 +410,7 @@ $.fn.accordion = function( parameters ){
       }
       else {
         //clickTypeTimeOut = setTimeout(function(){ 
-          //overBlock(currentOpened); }, autoplayTime);
+        //overBlock(currentOpened); }, autoplayTime);
       }
     }
     //$('.loading').remove();
@@ -434,6 +430,9 @@ $.fn.accordion = function( parameters ){
       if($('#acc_holder').children().length == all_data.length && current_page != 1) {
         currentOpened = numBlocks-1; 
       } else {
+        if(page_sentinal <= 0) {
+          page_sentinal = 0
+        }
         get_next_page("previous");
         currentOpened = 0;
       }
@@ -459,7 +458,6 @@ $.fn.accordion = function( parameters ){
       overBlock(currentOpened); 
     });
   }
-  
 };
 }());
 
@@ -467,18 +465,12 @@ $.fn.accordion = function( parameters ){
  * Cleans up the rotator for every page
  */
 function empty_form() {
-	
-  console.log("element by jquery selector: " + JSON.stringify($('#accordion3')));
-  
-//  var shit = document.getElementById('#accordion3');
-//  shit.parentNode.removeChild(shit);
-  
   $('.acc_block').clearQueue();
   $('.acc_holder').clearQueue();
   $('.acc_content_holder').clearQueue();
   $('.acc_image').clearQueue();
   $('.accordion').clearQueue();
-  
+
   $('.acc_block').removeClass("locked");
   $('.acc_image').remove();
   $('.acc_block').remove();
@@ -486,26 +478,14 @@ function empty_form() {
   $('.acc_data').empty();
   $('.accordion').remove();
   $('.acc_content_holder').remove();
-  
+
   $('#acc_previous').remove();
   $('#acc_next').remove();
-  
-  console.log("Empted form");
-  console.log("element by id: " + document.getElementById('#accordion3'));
-  console.log("element by jquery selector: " + JSON.stringify($('#accordion3')));
-  
-  //shit = null;
-  if($('#accordion3') != null) {
-    console.log("accordion not null");
-  } else {
-	  console.log("accordion is null");
-  }
 }
 /**
  * Paging functionality
  */
 function get_next_page($direction) {
-  console.log("get_next_page entered");
   if($direction == "next") {
     page_sentinal = page_sentinal + $('#acc_holder').children().size();
     if(page_sentinal >= all_data.length) {
@@ -514,7 +494,6 @@ function get_next_page($direction) {
     else {
       current_page++;
     }
-    console.log("current page: " + current_page + " page sentinal: " + page_sentinal);
   } else {
     page_sentinal = page_sentinal - $('#acc_holder').children().size();
     if(page_sentinal < 0) {
@@ -526,7 +505,6 @@ function get_next_page($direction) {
         current_page = 1
       }
     }
-    
   }
   empty_form();
   all_data = [];
@@ -541,8 +519,6 @@ function get_next_page($direction) {
  */
 function updateDetails(divbox) {
   var children = $('#acc_data').children();
-  for(var i = 0; i < children.length; i++) {
-    $("#" + children[i].id).hide();
-  }
-  $("#acc_content" + (page_sentinal + divbox)).show();
+  $(".acc_content").hide()
+  $('#' + children[divbox].id).show();
 }
