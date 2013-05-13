@@ -16,6 +16,12 @@
 	padding:2px;
 }
 
+#acc_data {
+	padding: 0.5em 0.7em;
+	margin-bottom: 1em;
+	background: url(../images/ui/dark_triangle.png) no-repeat center 102% #282828;
+}
+
 .accordion .acc_holder{
 	position: absolute;
 	top: 0; left: 0;
