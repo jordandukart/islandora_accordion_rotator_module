@@ -40,7 +40,7 @@ function get_data(place) {
       all_data = data;
     },
     error: function() {
-        alert("Please Login to site");
+        alert("An error populating the Accordion Rotator.");
     },
     dataType: 'json'
   });
