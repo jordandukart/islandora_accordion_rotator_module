@@ -15,6 +15,9 @@ $(window).resize(function() {
  * handles dynamic frame and accordion width.
  */
 function resize_frame() {
+  if($(window).width() > 750) {
+	  $("#acc_border").width($(window).width()/2);
+	}
   $("#acc_border").width($(window).width()/2);
   $("#accordion3").width($("#acc_border").width());
 }
