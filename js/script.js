@@ -35,7 +35,7 @@ function get_data(place) {
       all_data = data;
     },
     error: function() {
-        alert("Please Login to site");
+        alert("An error populating the Accordion Rotator.");
     },
     dataType: 'json'
   });
@@ -91,8 +91,8 @@ function add_image_block(sentinal) {
 function add_detail_block(details,id_num) {
   $('#acc_data').append("<div id='acc_content" + id_num + "' class='acc_content' transitionType='bottom' transitionTime='0.5' distance='30' delay='0' x='0' y='0' alignV='top'></div>");
   $('#acc_content' + id_num).append("<div class='box' id='box" + id_num + "'></div>");
-  $('#box' + id_num).append("<p class='acc_title'>" + details.title + "</p>");
-  $('#box' + id_num).append("<p class='text'>" + details.description + "</p>");
+  $('#box' + id_num).append("<h2 class='acc_title'>" + details.title + "</h2>");
+  $('#box' + id_num).append("<p class='acc_text'>" + details.description + "</p>");
 }
 
 function add_locator_triangle() {
@@ -103,10 +103,10 @@ function add_locator_triangle() {
  */
 function load_rotator() {
   //add_locator_triangle();
-  $(".accordion").accordion({ width: 750,
+  $(".accordion").accordion({ width: $('#navigation').width(),
           sentData:all_data["content"],
           height:410,
-          barSize:100,
+          barSize:140,
           cover:false,
           coverAlpha:0.5,
           shadow:false,

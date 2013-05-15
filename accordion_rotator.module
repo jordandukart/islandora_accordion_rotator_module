@@ -27,8 +27,8 @@ function accordion_rotator_menu() {
   $items['accordion_rotator/setup/%'] = array(
     'page callback' => 'accordion_rotator_canvas_setup',
     'page arguments' => array(2),
+    'access arguments' => array('view accordion_rotator'),
     'type' => MENU_CALLBACK,
-    'access arguments' => array(2),
     'file' => 'includes/utils.inc',
   );
   $items['admin/config/content/accordion_rotator'] = array(
@@ -44,6 +44,12 @@ function accordion_rotator_menu() {
   return $items;
 }
 
+/**
+* Implements hook_permission().
+*/
+function accordion_rotator_permission() {
+  return array('view accordion_rotator' => array('title'=>t('View Accordion Rotator Content'),'description'=>t('Access Accordion Rotator')));
+}
 /**
  * Implements hook_block_info().
  */
