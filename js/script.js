@@ -7,12 +7,22 @@ var all_data;
 var current_page;
 var numBlocks;
 var page_sentinal = 0;
-jQuery(document).ready(function($) {
-    current_page = 1;
-    get_data(current_page);
-    build_form();
-    load_rotator();
-  });
+(function($) {
+	$(document).ready(function() {
+		current_page = 1;
+	    get_data(current_page);
+	    build_form();
+//	    $('#foo').on('click', function() {
+//	    	alert($(this).text());
+//	    	});
+//	    	$('#foo').trigger('click');
+	    	
+	    load_rotator();
+	    
+	    
+	});
+    
+  })(jQuery);
 
 /**
  * Post to our drupal endpoint to retrieve data for the
@@ -74,7 +84,7 @@ function add_buttons() {
 function add_image_block(sentinal) {
   $('#acc_holder').append("<div class='acc_block' id='acc_block" + sentinal + "'></div>");
   $('#acc_block' + sentinal).append("<div class='acc_content_holder' id='acc_content_holder" + sentinal + "' src='" + all_data["content"][sentinal].img_url + "'></div>");
-  $('#acc_content_holder' + sentinal).append("<div class='acc_image'></div>");
+  $('#acc_content_holder' + sentinal).append("<div class='acc_image' id='acc_image" + sentinal + "'></div>");
   add_detail_block(all_data["content"][sentinal],sentinal);
 }
 /**
@@ -89,10 +99,15 @@ function add_detail_block(details,id_num) {
   $('#box' + id_num).append("<p class='acc_title'>" + details.title + "</p>");
   $('#box' + id_num).append("<p class='text'>" + details.description + "</p>");
 }
+
+function add_locator_triangle() {
+  $('#acc_data').append("<div class='arrow-down'></div>");
+}
 /**
  * Initilize the rotator with default params
  */
 function load_rotator() {
+  //add_locator_triangle();
   $(".accordion").accordion({ width: 750,
           sentData:all_data["content"],
           height:410,

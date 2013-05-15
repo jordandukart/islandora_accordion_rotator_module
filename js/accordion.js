@@ -4,8 +4,6 @@
  * that was purchased. The last 3 functions of this file
  * are custom.
  */
-var width = 665;
-
 (function(undefined) {
 $.fn.accordion = function( parameters ){
   var width = 960;
@@ -438,6 +436,7 @@ $.fn.accordion = function( parameters ){
       }
         
       }
+      update_triangle_position(currentOpened);
       overBlock(currentOpened);
     });
     nextBtn.click(function(){
@@ -455,12 +454,19 @@ $.fn.accordion = function( parameters ){
         }
         
       }
+      update_triangle_position(currentOpened);
       overBlock(currentOpened); 
     });
   }
 };
 }());
 
+function update_triangle_position(block) {
+	//alert(block);
+//  var children = $('#acc_holder').children();
+//  var image_div = $('#' + children[block].id).children('#acc_content_holder').children('.acc_image');
+//  alert(block);
+}
 /**
  * Cleans up the rotator for every page
  */
@@ -511,6 +517,7 @@ function get_next_page($direction) {
   get_data(current_page);
   build_form();
   load_rotator();  
+  //$('#acc_next').trigger('click');
 }
 /**
  * Most elegant solution i can think of to 
@@ -521,4 +528,13 @@ function updateDetails(divbox) {
   var children = $('#acc_data').children();
   $(".acc_content").hide()
   $('#' + children[divbox].id).show();
+  // Now move the arrow above the correct image center
+  //alert("box: " + "#acc_image" + divbox);
+//  var img_position = $("#acc_image" + divbox).parent().position();
+//  var image_x = img_position.left + ($("#acc_image" + divbox).parent().width()/2);
+// // alert(image_x);
+//  $(".arrow-down").css({
+//	  position: 'absolute',
+//	  left: image_x + "px",
+//  });
 }
