@@ -17,9 +17,24 @@
 }
 
 #acc_data {
-	padding: 0.5em 0.7em;
-	margin-bottom: 1em;
+}
+
+.acc_content {
+	padding: 5px;
 	background: url(../images/ui/dark_triangle.png) no-repeat center 102% #282828;
+	position: relative;
+	top: -10px;
+	min-width: 99.5%;
+}
+
+.acc_title {
+	color: #fff;
+	margin: 0.3em 0;
+}
+
+.acc_text {
+	font-size: 90%;
+	margin-top: 1em;
 }
 
 .accordion .acc_holder{
