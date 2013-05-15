@@ -48,10 +48,30 @@ function update_numblocks() {
   // We need to handle small sized screens with large images...
   if($(window).width() < 320 && numBlocks != 1) {
     numBlocks = 1;
+    barSize = 35;
+    empty_form();
+    all_data = [];
+    get_data(current_page);
+    build_form();
+    load_rotator();
   } else if($(window).width() < 640 && $(window).width() > 364 && numBlocks != 2) {
     numBlocks = 2;
+    barSize = 70;
+    empty_form();
+    all_data = [];
+    get_data(current_page);
+    build_form();
+    load_rotator();
   } else if($(window).width() < 1024 && $(window).width() > 640 && numBlocks != 4){
     numBlocks = 4;
+    barSize = 100;
+    empty_form();
+    all_data = [];
+    get_data(current_page);
+    build_form();
+    load_rotator();
+   
+    console.log("Test resize fire");
   } else if($(window).width() > 1024 && numBlocks != 7){
     numBlocks = 6;
   }

@@ -12,11 +12,6 @@ var page_sentinal = 0;
 		current_page = 1;
 	    get_data(current_page);
 	    build_form();
-//	    $('#foo').on('click', function() {
-//	    	alert($(this).text());
-//	    	});
-//	    	$('#foo').trigger('click');
-	    	
 	    load_rotator();
 	    
 	    
