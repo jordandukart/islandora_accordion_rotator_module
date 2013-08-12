@@ -89,7 +89,7 @@ function add_image_block(sentinal) {
  * @param id_num
  */
 function add_detail_block(details,id_num) {
-  $('#acc_data').append("<div id='acc_content" + id_num + "' class='acc_content' transitionType='bottom' transitionTime='0.5' distance='30' delay='0' x='0' y='0' alignV='top'></div>");
+  $('#acc_image' +id_num).append("<div id='acc_content" + id_num + "' class='acc_content' transitionType='bottom' transitionTime='0.5' distance='30' delay='0' x='0' y='0' alignV='bottom'></div>");
   $('#acc_content' + id_num).append("<div class='box' id='box" + id_num + "'></div>");
   $('#box' + id_num).append("<h2 class='acc_title'>" + details.title + "</h2>");
   $('#box' + id_num).append("<p class='acc_text'>" + details.description + "</p>");
@@ -103,7 +103,7 @@ function add_locator_triangle() {
  */
 function load_rotator() {
   //add_locator_triangle();
-  $(".accordion").accordion({ width: $('#navigation').width(),
+  $(".accordion").accordion({ width: $('.content').width(),
           sentData:all_data["content"],
           height:410,
           barSize:140,

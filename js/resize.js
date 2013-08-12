@@ -9,7 +9,7 @@ $(window).resize(function() {
   $(".acc_content").hide();
   // Hide the grey info box while resizing.
   $(".acc_holder .acc_content", $("#accordion3")).css("opacity", 0);
-  console.log($(window).width());
+  console.log($('.content').width());
   resize_blocks();
 });
 /**
@@ -17,9 +17,10 @@ $(window).resize(function() {
  */
 function resize_frame() {
   if($(window).width() > 750) {
-	//  $("#acc_border").width($(window).width()/2);
+	  $("#acc_border").width($('.content').width());
 	}
-  $("#acc_border").width($('#navigation').width());
+  //console.log($("#acc_border").width());
+  //$("#acc_border").width($('#navigation').width());
   $("#accordion3").width($("#acc_border").width());
 }
 /**

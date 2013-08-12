@@ -167,7 +167,7 @@ $.fn.accordion = function( parameters ){
         
         $this.clearQueue();
         var type = $this.attr("transitionType");
-        var alignV = "top";
+        var alignV = "bottom";
         var alignH = "left";
         var delay = 0;
         var distance = 30;
@@ -176,35 +176,33 @@ $.fn.accordion = function( parameters ){
         var top = 0;
         
         //READ ATTRIBUTES
-        if($this.attr("alignV") !=  undefined)
-          alignV = $this.attr("alignV");
-          
-        if($this.attr("alignH") != undefined)
-          alignH = $this.attr("alignH");
-        
-        if($this.attr("delay") != undefined)
-           delay = parseFloat($this.attr("delay"), 10)*1000;
-           
-        if($this.attr("distance") != undefined)
-           distance = parseInt($this.attr("distance"), 10);
-           
-        if($this.attr("transitionTime") != undefined)
-           transitionTimeContent =  parseFloat($this.attr("transitionTime"), 10)*1000;
-           
-        if($this.attr("x") != undefined)
-           left =  parseInt($this.attr("x"), 10);
-         
-        if($this.attr("y") != undefined)
-           top =  parseInt($this.attr("y"), 10);
-        
-      
+        if($this.attr("alignV") !=  undefined){
+        	alignV = $this.attr("alignV");
+        }
+        if($this.attr("alignH") != undefined){
+        	alignH = $this.attr("alignH");
+        }
+        if($this.attr("delay") != undefined){
+        	delay = parseFloat($this.attr("delay"), 10)*1000;
+        }
+        if($this.attr("distance") != undefined){
+        	distance = parseInt($this.attr("distance"), 10);
+        }
+        if($this.attr("transitionTime") != undefined){
+        	transitionTimeContent =  parseFloat($this.attr("transitionTime"), 10)*1000;
+        }
+        if($this.attr("x") != undefined){
+        	left =  parseInt($this.attr("x"), 10);
+        }
+        if($this.attr("y") != undefined){
+        	top =  parseInt($this.attr("y"), 10);
+        }
         if(alignV=="bottom"){
           top = height-$this.height()-top;
         }
         if(alignH=="right"){
           left = size-$this.width()-left;
         }
-      
         if(type=="left")
           $this.css("left", (left-distance)+'px');
         else if(type=="right")
@@ -431,42 +429,36 @@ $.fn.accordion = function( parameters ){
         if(page_sentinal <= 0) {
           page_sentinal = 0
         }
-        get_next_page("previous");
+        //get_next_page("previous");
         currentOpened = 0;
       }
         
       }
-      update_triangle_position(currentOpened);
       overBlock(currentOpened);
     });
     nextBtn.click(function(){
+    	console.log("current page: " + current_page);
       outBlock(currentOpened);
       updateDetails(currentOpened);
       if(currentOpened<(numBlocks-1)) {
       currentOpened++;
+      console.log("current opened: " + currentOpened);
       } else {
       // Check for more and post if necessary
         if($('#acc_holder').children().length == all_data.length) {
           currentOpened = 0;
         } else {
-          get_next_page("next");
+          //get_next_page("next");
           currentOpened = 0
         }
         
       }
-      update_triangle_position(currentOpened);
       overBlock(currentOpened); 
     });
   }
 };
 }());
 
-function update_triangle_position(block) {
-	//alert(block);
-//  var children = $('#acc_holder').children();
-//  var image_div = $('#' + children[block].id).children('#acc_content_holder').children('.acc_image');
-//  alert(block);
-}
 /**
  * Cleans up the rotator for every page
  */
@@ -487,11 +479,13 @@ function empty_form() {
 
   $('#acc_previous').remove();
   $('#acc_next').remove();
+  console.log("Emptied form");
 }
 /**
  * Paging functionality
  */
 function get_next_page($direction) {
+	console.log("direction: " + $direction);
   if($direction == "next") {
     page_sentinal = page_sentinal + $('#acc_holder').children().size();
     if(page_sentinal >= all_data.length) {
@@ -515,26 +509,17 @@ function get_next_page($direction) {
   empty_form();
   all_data = [];
   get_data(current_page);
+  console.log("current page: " + current_page);
   build_form();
   load_rotator();  
   //$('#acc_next').trigger('click');
 }
+
 /**
  * Most elegant solution i can think of to 
  * update the description boxes
  * @param divbox
  */
 function updateDetails(divbox) {
-  var children = $('#acc_data').children();
-  $(".acc_content").hide()
-  $('#' + children[divbox].id).show();
-  // Now move the arrow above the correct image center
-  //alert("box: " + "#acc_image" + divbox);
-//  var img_position = $("#acc_image" + divbox).parent().position();
-//  var image_x = img_position.left + ($("#acc_image" + divbox).parent().width()/2);
-// // alert(image_x);
-//  $(".arrow-down").css({
-//	  position: 'absolute',
-//	  left: image_x + "px",
-//  });
+	$("#acc_content" + divbox).css({'display':'block'});
 }
