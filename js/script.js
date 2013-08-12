@@ -26,12 +26,14 @@ var page_sentinal = 0;
 function get_data(place) {
   // Set the correct number of blocks to show depending
   // on screensize. This is used in accordion.js calc's.
+	console.log("Page: " + place);
   update_numblocks();
   var base = window.Drupal.settings.basePath;
   $.ajax({
     url: base + 'accordion_rotator/setup/' + place,
     async:false,
     success: function(data, status, xhr) {
+    	console.log("data: " + JSON.stringify(data));
       all_data = data;
     },
     error: function() {
@@ -54,6 +56,7 @@ function build_form() {
   buttonsClass("div.accordion_button");
   
   var total = all_data["content"].length;
+  console.log("total length: "+total);
   for(var i = 0;i<6;i++) {
     add_image_block((page_sentinal + i) % total);     
   }

@@ -429,7 +429,7 @@ $.fn.accordion = function( parameters ){
         if(page_sentinal <= 0) {
           page_sentinal = 0
         }
-        //get_next_page("previous");
+        get_next_page("previous");
         currentOpened = 0;
       }
         
@@ -448,7 +448,7 @@ $.fn.accordion = function( parameters ){
         if($('#acc_holder').children().length == all_data.length) {
           currentOpened = 0;
         } else {
-          //get_next_page("next");
+          get_next_page("next");
           currentOpened = 0
         }
         
