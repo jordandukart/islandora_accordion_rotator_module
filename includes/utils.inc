@@ -72,7 +72,6 @@ function accordion_rotator_canvas_setup($place) {
       }
     }
   }
-dsm($pids_array);
   // Safety Check.
   $fedora_object;
   if (!empty($pids_array)) {
