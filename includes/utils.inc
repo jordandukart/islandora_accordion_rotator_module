@@ -72,6 +72,7 @@ function accordion_rotator_canvas_setup($place) {
       }
     }
   }
+dsm($pids_array);
   // Safety Check.
   $fedora_object;
   if (!empty($pids_array)) {
@@ -123,8 +124,8 @@ function accordion_rotator_canvas_setup($place) {
           $description = '';
         }
         array_push($content, array(
-        'title' => $title,
-        'description' => substr($description,0,20),
+        'title' => substr($title,0,20) . '...',
+        'description' => substr($description,0,20) . '...',
         'img_url' => $thumbnail_url,
         'link' => url($base_url . "/islandora/object/{$fedora_object->id}"),
         )
