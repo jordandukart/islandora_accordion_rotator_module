@@ -124,7 +124,7 @@ function accordion_rotator_canvas_setup($place) {
         }
         array_push($content, array(
         'title' => $title,
-        'description' => $description,
+        'description' => substr($description,0,20),
         'img_url' => $thumbnail_url,
         'link' => url($base_url . "/islandora/object/{$fedora_object->id}"),
         )
