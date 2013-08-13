@@ -62,11 +62,9 @@ function accordion_rotator_canvas_setup($place) {
   if ($place == 1) {
     $pids_array = explode(",", variable_get('accordion_pid_list'));
   }
-  dsm($place);
+
   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
   $rtdata = islandora_basic_collection_get_objects($fedora_object2, intval($place), 6);
-  ////islandora_basic_collection_get_member_objects($fedora_object2, intval($place), 6);
-  dsm($rtdata);
   foreach ($rtdata as $members) {
     if (isset($members['object']['value'])) {
       if (!in_array($members['object']['value'], $pids_array)) {
@@ -111,6 +109,7 @@ function accordion_rotator_canvas_setup($place) {
         // an accordion block.
         $title = "";
         $description = "";
+        
         if (isset($dc_object->dc['dc:title'][0])) {
           $title = $dc_object->dc['dc:title'][0];
         }
@@ -127,6 +126,7 @@ function accordion_rotator_canvas_setup($place) {
         'title' => $title,
         'description' => $description,
         'img_url' => $thumbnail_url,
+        'link' => url($base_url . "/islandora/object/{$fedora_object->id}"),
         )
         );
       }
