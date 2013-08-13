@@ -63,15 +63,15 @@ function accordion_rotator_canvas_setup($place) {
     $pids_array = explode(",", variable_get('accordion_pid_list'));
   }
 
-//   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-//   $rtdata = islandora_basic_collection_get_objects($fedora_object2, intval($place), 6);
-//   foreach ($rtdata as $members) {
-//     if (isset($members['object']['value'])) {
-//       if (!in_array($members['object']['value'], $pids_array)) {
-//         array_push($pids_array, $members['object']['value']);
-//       }
-//     }
-//   }
+  $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
+  $rtdata = islandora_basic_collection_get_objects($fedora_object2, intval($place), 6);
+  foreach ($rtdata as $members) {
+    if (isset($members['object']['value'])) {
+      if (!in_array($members['object']['value'], $pids_array)) {
+        array_push($pids_array, $members['object']['value']);
+      }
+    }
+  }
   // Safety Check.
   $fedora_object;
   if (!empty($pids_array)) {
