@@ -57,8 +57,8 @@ function update_numblocks() {
 	  } else if($(window).width() < 1024 && $(window).width() > 640 && numBlocks != 4){
 	    numBlocks = 4;
 	    update_block_count();
-	  } else if($(window).width() > 1024 && numBlocks != 4){
-	    numBlocks = 4;
+	  } else if($(window).width() > 1024 && numBlocks != 5){
+	    numBlocks = 5;
 	    update_block_count();
 	  }
 	
