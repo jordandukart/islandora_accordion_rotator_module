@@ -58,7 +58,7 @@ function build_form() {
   var total = all_data["content"].length;
   update_numblocks();
   if(numBlocks>total) {
-	  numBlocks = 
+	  numBlocks = total;
   }
   for(var i = 0;i<numBlocks;i++) {
     add_image_block((0 + i) % total);     
