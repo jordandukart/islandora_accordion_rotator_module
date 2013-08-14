@@ -109,7 +109,6 @@ function accordion_rotator_canvas_setup($place) {
         // an accordion block.
         $title = "";
         $description = "";
-        
         if (isset($dc_object->dc['dc:title'][0])) {
           $title = $dc_object->dc['dc:title'][0];
         }
@@ -123,8 +122,8 @@ function accordion_rotator_canvas_setup($place) {
           $description = '';
         }
         array_push($content, array(
-        'title' => substr($title,0,20) . '...',
-        'description' => substr($description,0,20) . '...',
+        'title' => substr($title, 0, 20) . '...',
+        'description' => substr($description, 0, 20) . '...',
         'img_url' => $thumbnail_url,
         'link' => url($base_url . "/islandora/object/{$fedora_object->id}"),
         )

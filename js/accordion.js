@@ -429,6 +429,7 @@ $.fn.accordion = function( parameters ){
         if(page_sentinal <= 0) {
           page_sentinal = 0
         }
+        // To enable paging, uncomment the following line.
         //get_next_page("previous");
         currentOpened = 0;
       }
@@ -446,6 +447,7 @@ $.fn.accordion = function( parameters ){
         if($('#acc_holder').children().length == all_data.length) {
           currentOpened = 0;
         } else {
+          // To enable paging, uncomment the following line.
           //get_next_page("next");
           currentOpened = 0
         }
@@ -503,7 +505,6 @@ function get_next_page($direction) {
     }
   }
   empty_rotator();
-  //$('#acc_next').trigger('click');
 }
 
 function empty_rotator() {

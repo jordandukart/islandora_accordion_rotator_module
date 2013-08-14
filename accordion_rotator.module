@@ -45,10 +45,13 @@ function accordion_rotator_menu() {
 }
 
 /**
-* Implements hook_permission().
-*/
+ * Implements hook_permission().
+ */
 function accordion_rotator_permission() {
-  return array('view accordion_rotator' => array('title'=>t('View Accordion Rotator Content'),'description'=>t('Access Accordion Rotator')));
+  return array(
+    'view accordion_rotator' => array(
+      'title' => t('View Accordion Rotator Content'),
+      'description' => t('Access Accordion Rotator')));
 }
 /**
  * Implements hook_block_info().
@@ -93,8 +96,6 @@ function accordion_rotator_block_view($delta = '') {
         'linkpath' => url(drupal_get_path('module', 'accordion_rotator')),
       );
       drupal_add_js(array('accordion_rotator' => $my_settings), 'setting');
-      
-      
       break;
   }
   return $block;

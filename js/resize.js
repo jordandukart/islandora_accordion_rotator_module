@@ -18,8 +18,6 @@ function resize_frame() {
   if($(window).width() > 750) {
 	  $("#acc_border").width($('.content').width());
 	}
-  //console.log($("#acc_border").width());
-  //$("#acc_border").width($('#navigation').width());
   $("#accordion3").width($("#acc_border").width());
 }
 /**
