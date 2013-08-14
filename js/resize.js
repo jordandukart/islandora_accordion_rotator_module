@@ -62,9 +62,15 @@ function update_numblocks() {
 	
 	  
 }
+/**
+ * Called during resize.
+ * 
+ * This function is called during ar resize,
+ * which will clear the rotator and draw it again
+ * based on its new size.
+ */
 function update_block_count() {
 	if(numBlocks != ($('#acc_holder').children().size()) && $('#acc_holder').children().size() !=0){
 		empty_rotator();
 	}
 }
-

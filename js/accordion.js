@@ -429,8 +429,9 @@ $.fn.accordion = function( parameters ){
         if(page_sentinal <= 0) {
           page_sentinal = 0
         }
-        // To enable paging, uncomment the following line.
-        //get_next_page("previous");
+        // TODO: Paging implemented in commit hash : 2d74e0b0120d9a1fa9f0198118735dc6ea3dd440.
+        // Please reference said commit to implement paging if required.
+        //get_next_page("next");
         currentOpened = 0;
       }
         
@@ -447,7 +448,8 @@ $.fn.accordion = function( parameters ){
         if($('#acc_holder').children().length == all_data.length) {
           currentOpened = 0;
         } else {
-          // To enable paging, uncomment the following line.
+          // TODO: Paging implemented in commit hash : 2d74e0b0120d9a1fa9f0198118735dc6ea3dd440.
+          // Please reference said commit to implement paging if required.
           //get_next_page("next");
           currentOpened = 0
         }
@@ -481,7 +483,9 @@ function empty_form() {
   $('#acc_next').remove();
 }
 /**
- * Paging functionality
+ * Paging functionality.
+ * 
+ * Implemented in commit hash: 2d74e0b0120d9a1fa9f0198118735dc6ea3dd440.
  */
 function get_next_page($direction) {
   if($direction == "next") {
