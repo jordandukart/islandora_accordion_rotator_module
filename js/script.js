@@ -105,9 +105,9 @@ function add_locator_triangle() {
  */
 function load_rotator() {
   //add_locator_triangle();
-  $(".accordion").accordion({ width: $('.accordion').parent().width(),
+  $(".accordion").accordion({ width: $('#accordion3').parent().width(),
           sentData:all_data["content"],
-          height:420,
+          height:440,
           barSize:140,
           cover:false,
           coverAlpha:0.5,
