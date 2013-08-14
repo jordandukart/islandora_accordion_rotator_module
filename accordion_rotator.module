@@ -11,11 +11,10 @@
  * Displays help and module information.
  */
 function accordion_rotator_help($path, $arg) {
-  switch ($path) {
-    case "admin/help#accordion_rotator":
-      return '<p>' . t("Displays images including a user selected list of PID's for display on the frontpage accordion rotator") . '</p>';
-
-    break;
+  $rtn;
+  if (strcmp($path, 'admin/help#accordion_rotator')) {
+    $rtn = '<p>' . t("Displays images including a user selected list of PID's for display on the frontpage accordion rotator") . '</p>';
+    return $rtn;
   }
 }
 
