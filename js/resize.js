@@ -15,9 +15,7 @@ $(window).resize(function() {
  * handles dynamic frame and accordion width.
  */
 function resize_frame() {
-  if($(window).width() > 750) {
-	  $("#acc_border").width($('.content').width());
-	}
+  $("#acc_border").css('width','100%');
   $("#accordion3").width($("#acc_border").width());
 }
 /**
@@ -46,21 +44,19 @@ function resize_blocks() {
 function update_numblocks() {
 	
 	  // We need to handle small sized screens with large images...
-	  if($(window).width() < 320 && numBlocks != 1) {
+	  if($('.accordion').parent().width() < 320 && numBlocks != 1) {
 	    numBlocks = 1;
 	    update_block_count();
-	  } else if($(window).width() < 640 && $(window).width() > 364 && numBlocks != 2) {
+	  } else if($('.accordion').parent().width() < 640 && $('.accordion').width() > 364 && numBlocks != 2) {
 	    numBlocks = 2;
 	    update_block_count();
-	  } else if($(window).width() < 1024 && $(window).width() > 640 && numBlocks != 4){
+	  } else if($('.accordion').parent().width() < 1024 && $('.accordion').width() > 640 && numBlocks != 4){
 	    numBlocks = 4;
 	    update_block_count();
-	  } else if($(window).width() > 1024 && numBlocks != 5){
+	  } else if($('.accordion').parent().width() > 1024 && numBlocks != 5){
 	    numBlocks = 5;
 	    update_block_count();
 	  }
-	
-	  
 }
 /**
  * Called during resize.
