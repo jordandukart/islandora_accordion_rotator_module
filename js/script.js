@@ -27,7 +27,6 @@ var rebuild = false;
 function get_data(place) {
   // Set the correct number of blocks to show depending
   // on screensize. This is used in accordion.js calc's.
-  //update_numblocks();
   var base = window.Drupal.settings.basePath;
   $.ajax({
     url: base + 'accordion_rotator/setup/' + place,
