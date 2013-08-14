@@ -5,7 +5,7 @@
  */
 
 ?>
-<div style="min-width: 200px;float:right">
+<div>
 	<div id="acc_border">
 	</div>
 </div>
