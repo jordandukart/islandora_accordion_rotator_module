@@ -5,5 +5,7 @@
  */
 
 ?>
-<div id="acc_border">
+<div>
+	<div id="acc_border">
+	</div>
 </div>

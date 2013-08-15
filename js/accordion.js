@@ -301,9 +301,7 @@ $.fn.accordion = function( parameters ){
   //OUT OF A BLOCK
   var outBlock = function(num){
     var $thisBlock = $($blocks[num]);
-    
     $thisBlock.removeClass("locked");
-    
     outBlockContent(num);
     
     for(var i=0; i<numBlocks; i++){
@@ -330,7 +328,6 @@ $.fn.accordion = function( parameters ){
   //INITIAL IMAGES LOAD
   var loadImage = function(num){
     var $block = $($blocks[num]);
-    
     //create image
     var img = new Image();
     img.onload = function() {
@@ -386,8 +383,10 @@ $.fn.accordion = function( parameters ){
       
       if(changeType=="click"){
         $block.click(  function(){
-                      if(currentOpened != parseInt($(this).attr("rel"), 10))
-                          outBlock(currentOpened);
+                      if(currentOpened != parseInt($(this).attr("rel"), 10)) {
+                    	  outBlock(currentOpened);
+                      }
+                          
                     overBlock(parseInt($(this).attr("rel"), 10));});
         $block.css("cursor", "pointer");
       }
@@ -429,7 +428,9 @@ $.fn.accordion = function( parameters ){
         if(page_sentinal <= 0) {
           page_sentinal = 0
         }
-        //get_next_page("previous");
+        // TODO: Paging implemented in commit hash : 2d74e0b0120d9a1fa9f0198118735dc6ea3dd440.
+        // Please reference said commit to implement paging if required.
+        //get_next_page("next");
         currentOpened = 0;
       }
         
@@ -437,17 +438,17 @@ $.fn.accordion = function( parameters ){
       overBlock(currentOpened);
     });
     nextBtn.click(function(){
-    	console.log("current page: " + current_page);
       outBlock(currentOpened);
       updateDetails(currentOpened);
       if(currentOpened<(numBlocks-1)) {
       currentOpened++;
-      console.log("current opened: " + currentOpened);
       } else {
       // Check for more and post if necessary
         if($('#acc_holder').children().length == all_data.length) {
           currentOpened = 0;
         } else {
+          // TODO: Paging implemented in commit hash : 2d74e0b0120d9a1fa9f0198118735dc6ea3dd440.
+          // Please reference said commit to implement paging if required.
           //get_next_page("next");
           currentOpened = 0
         }
@@ -479,13 +480,13 @@ function empty_form() {
 
   $('#acc_previous').remove();
   $('#acc_next').remove();
-  console.log("Emptied form");
 }
 /**
- * Paging functionality
+ * Paging functionality.
+ * 
+ * Implemented in commit hash: 2d74e0b0120d9a1fa9f0198118735dc6ea3dd440.
  */
 function get_next_page($direction) {
-	console.log("direction: " + $direction);
   if($direction == "next") {
     page_sentinal = page_sentinal + $('#acc_holder').children().size();
     if(page_sentinal >= all_data.length) {
@@ -506,15 +507,17 @@ function get_next_page($direction) {
       }
     }
   }
-  empty_form();
-  all_data = [];
-  get_data(current_page);
-  console.log("current page: " + current_page);
-  build_form();
-  load_rotator();  
-  //$('#acc_next').trigger('click');
+  empty_rotator();
 }
 
+function empty_rotator() {
+	  empty_form();
+  all_data = [];
+  currentOpened = 0;
+  get_data(1);
+  build_form();
+  load_rotator();
+}
 /**
  * Most elegant solution i can think of to 
  * update the description boxes

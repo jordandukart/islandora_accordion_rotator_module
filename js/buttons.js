@@ -4,7 +4,6 @@
  */
 buttonsClass = function(classButton) {
   //NEXT OVER
-	console.log("button class");
   $(classButton).append('<span class="hover"></span>').each(function () {  
     var $span = $('span.hover', this);
     var normal = $(this).attr("normal");

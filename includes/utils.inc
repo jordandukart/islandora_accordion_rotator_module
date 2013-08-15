@@ -64,8 +64,9 @@ function accordion_rotator_canvas_setup($place) {
   }
 
   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-  $rtdata = islandora_basic_collection_get_objects($fedora_object2, intval($place), 6);
-  foreach ($rtdata as $members) {
+  $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, intval($place), 6);
+
+  foreach ($rtdata[1] as $members) {
     if (isset($members['object']['value'])) {
       if (!in_array($members['object']['value'], $pids_array)) {
         array_push($pids_array, $members['object']['value']);
@@ -122,9 +123,10 @@ function accordion_rotator_canvas_setup($place) {
           $description = '';
         }
         array_push($content, array(
-        'title' => $title,
-        'description' => $description,
+        'title' => substr($title, 0, 20) . '...',
+        'description' => substr($description, 0, 20) . '...',
         'img_url' => $thumbnail_url,
+        'link' => url($base_url . "/islandora/object/{$fedora_object->id}"),
         )
         );
       }

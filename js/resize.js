@@ -9,18 +9,13 @@ $(window).resize(function() {
   $(".acc_content").hide();
   // Hide the grey info box while resizing.
   $(".acc_holder .acc_content", $("#accordion3")).css("opacity", 0);
-  console.log($('.content').width());
   resize_blocks();
 });
 /**
  * handles dynamic frame and accordion width.
  */
 function resize_frame() {
-  if($(window).width() > 750) {
-	  $("#acc_border").width($('.content').width());
-	}
-  //console.log($("#acc_border").width());
-  //$("#acc_border").width($('#navigation').width());
+  $("#acc_border").css('width','100%');
   $("#accordion3").width($("#acc_border").width());
 }
 /**
@@ -47,14 +42,30 @@ function resize_blocks() {
  * number to show in the accordion based on screen size.
  */
 function update_numblocks() {
-  // We need to handle small sized screens with large images...
-  if($(window).width() < 320 && numBlocks != 1) {
-    numBlocks = 1;
-  } else if($(window).width() < 640 && $(window).width() > 364 && numBlocks != 2) {
-    numBlocks = 2;
-  } else if($(window).width() < 1024 && $(window).width() > 640 && numBlocks != 4){
-    numBlocks = 4;
-  } else if($(window).width() > 1024 && numBlocks != 7){
-    numBlocks = 6;
-  }
+	  // We need to handle small sized screens with large images...
+	  if($('.accordion').parent().width() < 320 && numBlocks != 1) {
+	    numBlocks = 1;
+	    update_block_count();
+	  } else if($('.accordion').parent().width() < 640 && $('.accordion').width() > 364 && numBlocks != 2) {
+	    numBlocks = 2;
+	    update_block_count();
+	  } else if($('.accordion').parent().width() < 1024 && $('.accordion').width() > 640 && numBlocks != 4){
+	    numBlocks = 4;
+	    update_block_count();
+	  } else if($('.accordion').parent().width() > 1024 && numBlocks != 5){
+	    numBlocks = 5;
+	    update_block_count();
+	  }
+}
+/**
+ * Called during resize.
+ * 
+ * This function is called during ar resize,
+ * which will clear the rotator and draw it again
+ * based on its new size.
+ */
+function update_block_count() {
+	if(numBlocks != ($('#acc_holder').children().size()) && $('#acc_holder').children().size() !=0){
+		empty_rotator();
+	}
 }
