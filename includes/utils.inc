@@ -64,7 +64,7 @@ function accordion_rotator_canvas_setup($place) {
   }
 
   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-  $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, 0, 6);
+  $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, intval(place), 6);
   
   foreach ($rtdata[1] as $members) {
     if (isset($members['object']['value'])) {
