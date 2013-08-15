@@ -11,9 +11,10 @@
  * Displays help and module information.
  */
 function accordion_rotator_help($path, $arg) {
-  return '<p>' . t("Displays images including a user selected list of PID's for display on the frontpage accordion rotator") . '</p>';
+  if ($path == 'admin/help#accordion_rotator') {
+    return '<p>' . t("Displays images including a user selected list of PID's for display on the frontpage accordion rotator") . '</p>';
+  }
 }
-
 /**
  * Implements hook_menu().
  */
