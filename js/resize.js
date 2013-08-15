@@ -42,7 +42,6 @@ function resize_blocks() {
  * number to show in the accordion based on screen size.
  */
 function update_numblocks() {
-	
 	  // We need to handle small sized screens with large images...
 	  if($('.accordion').parent().width() < 320 && numBlocks != 1) {
 	    numBlocks = 1;

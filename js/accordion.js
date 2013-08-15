@@ -301,7 +301,6 @@ $.fn.accordion = function( parameters ){
   //OUT OF A BLOCK
   var outBlock = function(num){
     var $thisBlock = $($blocks[num]);
-    
     $thisBlock.removeClass("locked");
     outBlockContent(num);
     
