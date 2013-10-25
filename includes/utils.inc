@@ -15,7 +15,6 @@ function accordion_rotator_form($form, &$form_state) {
     '#default_value' => variable_get('accordion_pid_list', ''),
     '#size' => 100,
     '#maxlength' => 200,
-    '#required' => TRUE,
     '#element_validate' => array('accordion_rotator_form_validate'),
   );
 
@@ -25,47 +24,39 @@ function accordion_rotator_form($form, &$form_state) {
 /**
  * Validate user input on submission.
  *
- * @param unknown $element
- *   The form element to
- *   validate.
+ * @param array $element
+ *   The form element to validate.
  */
 function accordion_rotator_form_validate($element) {
   module_load_include('inc', 'islandora', 'includes/IslandoraTuque');
   module_load_include('inc', 'islandora', 'includes/datastream');
 
-  $my_islandora_tuque = new IslandoraTuque();
-  $repository = $my_islandora_tuque->repository;
   if (isset($element['#value'])) {
     $data_array = explode(',', $element['#value']);
-
+    $error_pids = array();
     foreach ($data_array as $pid) {
-      $fedora_object = islandora_object_load(str_replace(' ', '', $pid));
-      if (!isset($fedora_object)) {
-        form_set_error('accordion_pid_list', t('One or more of the provided PIDs is not valid.'));
+      $fedora_object = islandora_object_load(trim($pid));
+      if (!$fedora_object) {
+        $error_pids[] = $pid;
       }
+    }
+    if (count($error_pids)) {
+      form_set_error('accordion_pid_list', t('The following pids are invalid: @pids', array('@pids' => implode(',', $error_pids))));
     }
   }
 }
   /**
    * Callback to setup variables for the accordion.
    */
-function accordion_rotator_canvas_setup($place) {
-
-  module_load_include('inc', 'islandora', 'includes/IslandoraTuque');
+function accordion_rotator_canvas_setup() {
   module_load_include('inc', 'islandora', 'includes/datastream');
-  module_load_include('inc', 'islandora_paged_content', 'includes/utilities');
-
-  global $base_url;
   // Get the configuration pids from this modules configuration page.
   $content = array();
-  $pids_array = array();
-  if ($place == 1) {
-    $pids_array = explode(",", variable_get('accordion_pid_list'));
-  }
+  $pids_array = explode(",", variable_get('accordion_pid_list'));
+
 
   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-  $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, intval($place), 6);
-
+  $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, 0, 6 - count($pids_array));
   foreach ($rtdata[1] as $members) {
     if (isset($members['object']['value'])) {
       if (!in_array($members['object']['value'], $pids_array)) {
@@ -74,42 +65,45 @@ function accordion_rotator_canvas_setup($place) {
     }
   }
   // Safety Check.
-  $fedora_object;
   if (!empty($pids_array)) {
-    // Connect to our repository.
-    $my_islandora_tuque = new IslandoraTuque();
-    $repository = $my_islandora_tuque->repository;
     foreach ($pids_array as $pid) {
       // Load the associated fedora object by pid.
       $fedora_object = islandora_object_load($pid);
 
-      // Check the objects existance, incase any faulty pids got past.
+      // Check the objects existence, incase any faulty pids got past.
       // the configuration page validation.
-      if ($fedora_object != NULL) {
+      if ($fedora_object) {
         // Grab the DC Datastream's contents, gets description.
-        $dc_object;
-        if (isset($fedora_object['DC']->content)) {
+        if (isset($fedora_object['DC'])) {
           $dc = $fedora_object['DC']->content;
           $dc_object = DublinCore::importFromXMLString($dc);
         }
 
         $thumbnail_url = '';
         // Try to set the best quality image as the url.
-        if (isset($fedora_object['TN'])) {
-          $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/TN/view");
+        // If JPEG is available, use it instead.
+        if (empty($thumbnail_url) && isset($fedora_object['JPEG'])) {
+          $thumbnail_url = url("islandora/object/{$fedora_object->id}/datastream/JPEG/view", array(
+            'absolute' => TRUE,
+            'language' => NULL,
+          ));
         }
         // If MEDIUM_SIZE is available, use it instead.
-        if (isset($fedora_object['MEDIUM_SIZE'])) {
-          $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/MEDIUM_SIZE/view");
+        if (empty($thumbnail_url) && isset($fedora_object['MEDIUM_SIZE'])) {
+          $thumbnail_url = url("islandora/object/{$fedora_object->id}/datastream/MEDIUM_SIZE/view", array(
+            'absolute' => TRUE,
+            'language' => NULL,
+          ));
         }
-        // If JPEG is available, use it instead.
-        if (isset($fedora_object['JPEG'])) {
-          $thumbnail_url = url($base_url . "/islandora/object/{$fedora_object->id}/datastream/JPEG/view");
+        if (empty($thumbnail_url) && isset($fedora_object['TN'])) {
+          $thumbnail_url = url("islandora/object/{$fedora_object->id}/datastream/TN/view", array(
+            'absolute' => TRUE,
+            'language' => NULL,
+          ));
         }
+
         // Add this data as an entry to be displayed to the user as
         // an accordion block.
-        $title = "";
-        $description = "";
         if (isset($dc_object->dc['dc:title'][0])) {
           $title = $dc_object->dc['dc:title'][0];
         }
@@ -123,25 +117,27 @@ function accordion_rotator_canvas_setup($place) {
           $description = '';
         }
         array_push($content, array(
-        'title' => substr($title, 0, 20) . '...',
-        'description' => substr($description, 0, 20) . '...',
-        'img_url' => $thumbnail_url,
-        'link' => url($base_url . "/islandora/object/{$fedora_object->id}"),
-        )
+          'title' => truncate_utf8($title, 30, FALSE, TRUE),
+          'description' => truncate_utf8($description, 30, FALSE, TRUE),
+          'img_url' => $thumbnail_url,
+          'link' => url("islandora/object/{$fedora_object->id}"),
+          )
         );
       }
     }
   }
   // Fill sample data if there is nothing configured yet.
-  if (empty($content)) {
-    array_push($content, array(
-    'title' => 'Test Title',
-    'description' => 'This is a description. Replace with data stream description by
-                        adding a comma seperated list of valid PIDs in this modules configuration page. ',
-                          'img_url' => url($base_url . "/" . drupal_get_path('module', 'accordion_rotator') .
-                          '/images/example_4/Depositphotos_4297654_XL.jpg'),
-    )
+  $content_count = count($content);
+  if ($content_count < 4) {
+    $default_value = array(
+      'title' => t('Test Title'),
+      'description' => t('This is a description. Click here to configure default PIDs.'),
+      'img_url' => file_create_url(drupal_get_path('module', 'islandora') . '/images/folder.png'),
     );
+    if (user_access('access administration pages')) {
+      $default_value['link'] = url('admin/config/content/accordion_rotator');
+    }
+    $content += array_fill($content_count, 4 - $content_count, $default_value);
   }
   $results["content"] = $content;
   $json = json_encode($results);
