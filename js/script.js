@@ -1,6 +1,6 @@
 /**
  * @file
- * Holds the initilization logic for the 
+ * Holds the initilization logic for the
  * accordion rotator.
  */
 var all_data;
@@ -14,10 +14,10 @@ var rebuild = false;
 	    get_data(current_page);
 	    build_form();
 	    load_rotator();
-	    
-	    
+
+
 	});
-    
+
   })(jQuery);
 
 /**
@@ -29,7 +29,7 @@ function get_data(place) {
   // on screensize. This is used in accordion.js calc's.
   var base = window.Drupal.settings.basePath;
   $.ajax({
-    url: base + 'accordion_rotator/setup/' + place,
+    url: base + 'accordion_rotator/setup',
     async:false,
     success: function(data, status, xhr) {
     	current_page = 0;
@@ -42,24 +42,24 @@ function get_data(place) {
   });
 }
 /**
- * Construct the form from scratch, every time it needs to 
+ * Construct the form from scratch, every time it needs to
  * be drawn
  */
 function build_form() {
   $('#acc_border').append("<div class='accordion' id='accordion3'></div>");
   $('#accordion3').append("<div class='acc_holder' id='acc_holder'></div>");
-  
+
   add_buttons();
-  
+
   buttonsClass("div.social_button");
   buttonsClass("div.accordion_button");
-  
+
   var total = all_data["content"].length;
   update_numblocks();
   for(var i = 0;i<numBlocks;i++) {
-    add_image_block((0 + i) % total);     
+    add_image_block((0 + i) % total);
   }
-  
+
   // Hide description fields for the time being...
   $(".acc_content").hide();
 }
@@ -123,7 +123,7 @@ function load_rotator() {
           previousBtn:$("#acc_border div.previous"),
           nextBtn:$("#acc_border div.next")}
           );
-  // Fire the resize event to be sure the accordion is the 
+  // Fire the resize event to be sure the accordion is the
   // correct size.
   $(window).resize();
 }
