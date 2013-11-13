@@ -56,11 +56,13 @@ function accordion_rotator_canvas_setup() {
 
 
   $fedora_object2 = islandora_object_load("islandora:sp_basic_image_collection");
-  $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, 0, 6 - count($pids_array));
-  foreach ($rtdata[1] as $members) {
-    if (isset($members['object']['value'])) {
-      if (!in_array($members['object']['value'], $pids_array)) {
-        array_push($pids_array, $members['object']['value']);
+  if ($fedora_object2 && count($pids_array) < 4) {
+    $rtdata = islandora_basic_collection_get_member_objects($fedora_object2, 0, 4 - count($pids_array));
+    foreach ($rtdata[1] as $members) {
+      if (isset($members['object']['value'])) {
+        if (!in_array($members['object']['value'], $pids_array)) {
+          array_push($pids_array, $members['object']['value']);
+        }
       }
     }
   }
